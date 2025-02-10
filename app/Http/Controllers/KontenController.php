@@ -15,150 +15,102 @@ class KontenController extends Controller
     //
     public function index()
 {
-    // Mendapatkan data user yang sedang login
-    $user = auth()->user(); // Ambil data user yang login
-    // Ambil data materi yang dibuat oleh guru yang sedang login
-    $materi = Konten::with(['mapel', 'kelas'])
-                ->where('user_id', auth()->id()) // Hanya untuk guru yang sedang login
+    $userId = auth()->user()->id; // ID user yang login
+
+    // Ambil mata pelajaran yang diampu oleh guru
+    $mapel = GuruMapel::where('user_id', $userId)
+            ->join('mapels', 'guru_mapels.mapel_id', '=', 'mapels.id')
+            ->select('mapels.id', 'mapels.nama_mapel')
+            ->distinct()
+            ->get();
+
+    // Ambil kelas yang diampu oleh guru
+    $kelas = GuruMapel::where('user_id', $userId)
+            ->join('kelas', 'guru_mapels.kelas_id', '=', 'kelas.id')
+            ->select('kelas.id', 'kelas.nama_kelas')
+            ->distinct()
+            ->get();
+
+    // Ambil video yang hanya terkait dengan mata pelajaran dan kelas yang diampu
+    $konten = Konten::with(['mapel', 'kelas']) // Pastikan relasi mapel dan kelas diload
+            ->whereHas('mapel', function ($query) use ($mapel) {
+                $query->whereIn('id', $mapel->pluck('id')); // Filter berdasarkan mata pelajaran
+            })
+            ->whereHas('kelas', function ($query) use ($kelas) {
+                $query->whereIn('id', $kelas->pluck('id')); // Filter berdasarkan kelas
+            })
+            ->get();
+
+    return view('guru.konten.index', compact('konten', 'kelas', 'mapel'));
+}
+
+public function createlocal()
+    {
+        $userId = auth()->user()->id; // ID user yang login
+
+        // Ambil mata pelajaran yang diampu oleh guru
+        $mapels = GuruMapel::where('user_id', $userId)
+                ->join('mapels', 'guru_mapels.mapel_id', '=', 'mapels.id')
+                ->select('mapels.id', 'mapels.nama_mapel')
+                ->distinct()
+                ->get();
+    
+        // Ambil kelas yang diampu oleh guru
+        $kelases = GuruMapel::where('user_id', $userId)
+                ->join('kelas', 'guru_mapels.kelas_id', '=', 'kelas.id')
+                ->select('kelas.id', 'kelas.nama_kelas')
+                ->distinct()
                 ->get();
 
-    // Ambil data mapel dan kelas sesuai guru yang sedang login
-    $mapels = GuruMapel::where('user_id', auth()->id())
-                ->with(['mapel', 'kelas'])
-                ->get();
-
-    return view('guru.konten.index', compact('materi', 'mapels'));
-}
-
-
-
-public function store(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'judul' => 'required|string|max:255',
-        'mapel_id' => 'required|integer',
-        'kelas_id' => 'required|integer',
-        'file' => 'required|file|mimes:pdf,doc,docx|max:2048', // Maksimal 2MB
-    ]);
-
-    // Proses upload file
-    if ($request->hasFile('file')) {
-        $file = $request->file('file');
-        $fileName = time() . '_' . $file->getClientOriginalName();
-        $filePath = $file->storeAs('uploads/materi', $fileName, 'public');
-
-        // Cek jika proses upload gagal
-        if (!$filePath) {
-            return redirect()->back()->with('error', 'Gagal mengunggah file. Silakan coba lagi.');
-        }
-    } else {
-        return redirect()->back()->with('error', 'File tidak ditemukan atau format tidak sesuai.');
+        // Mengirim semua variabel ke view
+        return view('guru.konten.createlocal', compact('mapels', 'kelases'));
     }
 
-    // Simpan data ke database
-    $materi = new Materi();
-    $materi->judul = $request->input('judul');
-    $materi->mapel_id = $request->input('mapel_id');
-    $materi->kelas_id = $request->input('kelas_id');
-    $materi->file_path = $filePath;
-    $materi->user_id = Auth::id();
-    $materi->save();
-
-    return redirect()->route('guru.materi.index')->with('success', 'Materi berhasil ditambahkan.');
-}
-
-public function update(Request $request, $id)
-{
-    $request->validate([
-        'judul' => 'required|string|max:255',
-        'mapel_id' => 'required|integer',
-        'kelas_id' => 'required|integer',
-        'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-    ]);
-
-    $materi = Materi::findOrFail($id);
-
-    $materi->judul = $request->judul;
-    $materi->mapel_id = $request->mapel_id;
-    $materi->kelas_id = $request->kelas_id;
-
-    if ($request->hasFile('file')) {
-        // Hapus file lama jika ada
-        if ($materi->file_path && Storage::disk('public')->exists($materi->file_path)) {
-            Storage::disk('public')->delete($materi->file_path);
-        }
-
-        $filePath = $request->file('file')->store('materi_files', 'public');
-
-        // Cek jika proses upload gagal
-        if (!$filePath) {
-            return redirect()->back()->with('error', 'Gagal mengunggah file. Silakan coba lagi.');
-        }
-
-        $materi->file_path = $filePath;
-    }
-
-    $materi->save();
-
-    return redirect()->route('guru.materi.index')->with('success', 'Materi berhasil diperbarui');
-}
-
-
-
-    // Fungsi untuk menghapus data materi
-    public function destroy($id)
+    // Simpan video dari file lokal
+    public function storeLocal(Request $request)
     {
-        // Temukan data materi berdasarkan ID
-        $materi = Materi::findOrFail($id);
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'required|string|max:500',
+            'mapel_id' => 'required|string|max:255',
+            'kelas_id' => 'required|string|max:255',
+            'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'video_path' => 'required|file|mimes:mp4,avi,mkv|max:102400', // Maksimal 100MB (102400 KB)
+        ]);
+        // Proses upload file materi
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('uploads/materi', $fileName, 'public');
 
-        // Hapus file yang terkait jika ada
-        if ($materi->file_path && Storage::exists($materi->file_path)) {
-            Storage::delete($materi->file_path);
+            // Cek jika proses upload gagal
+            if (!$filePath) {
+                return redirect()->back()->with('error', 'Gagal mengunggah file. Silakan coba lagi.');
+            }
+        } else {
+            return redirect()->back()->with('error', 'File tidak ditemukan atau format tidak sesuai.');
         }
 
-        // Hapus data materi dari database
-        $materi->delete();
+        $filePaths = $request->file('video_path')->store('videos', 'public');
 
-        // Redirect kembali dengan pesan sukses
-        return redirect()->route('guru.materi.index')->with('success', 'Materi berhasil dihapus.');
+        Konten::create([
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'mapel_id' => $request->mapel_id,
+            'kelas_id' => $request->kelas_id,
+            'file_path' => $filePath,
+            'video_path' => $filePaths,
+            'user_id' => auth()->id(),
+        ]);
+
+        return redirect()->route('guru.konten')->with('success', 'Konten Belajar berhasil diunggah dari lokal!');
     }
-
-
-
-    // tampilan materi untuk siswa
-    public function indexSiswa()
+    public function showLocal($id)
     {
-        // Ambil kelas_id dari user yang sedang login
-        $kelasId = Auth::user()->kelas_id;
+        
+        // Mengambil data materi berdasarkan ID
+        $konten = Konten::with(['mapel', 'kelas', 'user'])->findOrFail($id);
 
-        // Ambil materi sesuai kelas_id
-        $materi = Materi::with(['mapel', 'user'])
-                    ->where('kelas_id', $kelasId)
-                    ->paginate(10);
-
-        return view('siswa.materi.index', compact('materi'));
+        return view('guru.konten.showguru', compact('konten'));
     }
-
-    // Detail untuk materi Siswa
-    public function detailMateri($id)
-    {
-        // Ambil kelas_id dari user yang sedang login
-        $kelasId = Auth::user()->kelas_id;
-
-        // Ambil materi sesuai id dan kelas_id
-        $materi = Materi::with(['mapel', 'user'])
-                    ->where('kelas_id', $kelasId)
-                    ->where('id', $id)
-                    ->first();  // Mengambil satu record
-
-        // Pastikan materi ditemukan, jika tidak kembalikan ke halaman sebelumnya
-        if (!$materi) {
-            return redirect()->back()->with('error', 'Materi tidak ditemukan.');
-        }
-
-        return view('siswa.materi.detail', compact('materi'));
-    }
-
-
 }

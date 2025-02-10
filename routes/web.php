@@ -72,7 +72,10 @@ Route::prefix('siswa')->middleware('auth')->group(function () {
 });
 Route::prefix('guru')->middleware('auth')->group(function () {
     Route::get('/proyek', [GuruController::class, 'proyek'])->name('guru.proyek');
-    Route::get('/konten', [KontenController::class, 'index'])->name('guru.konten');    
+    Route::get('/konten', [KontenController::class, 'index'])->name('guru.konten');
+    Route::get('/konten/createlocal', [KontenController::class, 'createlocal'])->name('guru.konten.createlocal');
+    Route::post('konten/storeLocal', [KontenController::class, 'storeLocal'])->name('guru.konten.storeLocal'); // Upload lokal
+    Route::get('/konten/{id}/detaillocal', [KontenController::class, 'showLocal'])->name('guru.konten.showLocal');    
 });
 
 // =====================================================================================================================================

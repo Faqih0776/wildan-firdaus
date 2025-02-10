@@ -8,7 +8,7 @@ class Konten extends Model
 {
     use HasFactory;
     protected $table = 'konten';
-    protected $fillable = ['judul', 'mapel_id', 'kelas_id', 'file_path', 'user_id', 'video_path', 'link_youtube', 'deskripsi', 'foto_sampul'];
+    protected $fillable = ['judul', 'mapel_id', 'kelas_id', 'file_path', 'user_id', 'video_path', 'link_youtube', 'deskripsi'];
 
     // Relasi ke model Mapel
     public function mapel()

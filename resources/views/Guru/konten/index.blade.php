@@ -59,13 +59,13 @@
                                         $youtubeId = $ytParams['v'] ?? null;
                                     @endphp
                                     @if($youtubeId)
-                                        <iframe src="https://www.youtube.com/embed/{{ $youtubeId }}" allowfullscreen></iframe>
+                                        <iframe src="https://img.youtube.com/vi/{{ $youtubeId }}/mqdefault.jpg" allowfullscreen></iframe>
                                     @else
                                         <p class="text-danger">Invalid YouTube link.</p>
                                     @endif
                                 @else
                                     <!-- Video Lokal -->
-                                    <video controls style="width: 100%; height: 100%;">
+                                    <video style="width: 100%; height: 100%;">
                                         <source src="{{ asset('storage/' . $video->file_path) }}" type="video/mp4">
                                         Video tidak tersedia.
                                     </video>

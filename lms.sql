@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2025 at 04:22 PM
+-- Generation Time: Feb 10, 2025 at 04:35 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -413,15 +413,23 @@ INSERT INTO `kelas` (`id`, `kode_kelas`, `nama_kelas`, `created_at`, `updated_at
 CREATE TABLE `konten` (
   `id` int(11) NOT NULL,
   `judul` varchar(500) NOT NULL,
+  `deskripsi` varchar(500) NOT NULL,
   `mapel_id` bigint(11) UNSIGNED NOT NULL,
   `kelas_id` int(11) UNSIGNED NOT NULL,
   `file_path` varchar(500) NOT NULL,
-  `link_youtube` varchar(500) NOT NULL,
-  `video_path` varchar(500) NOT NULL,
+  `link_youtube` varchar(500) DEFAULT NULL,
+  `video_path` varchar(500) DEFAULT NULL,
   `user_id` bigint(11) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `konten`
+--
+
+INSERT INTO `konten` (`id`, `judul`, `deskripsi`, `mapel_id`, `kelas_id`, `file_path`, `link_youtube`, `video_path`, `user_id`, `created_at`, `updated_at`) VALUES
+(17, 'Bebas', 'bebas', 2, 2, 'uploads/materi/1739151847_Laporan Skripsi_124-141.pdf', NULL, 'videos/je8bw7vKXEOsFOBlbI9J7xjdwOa7fNZaGacHRlki.mp4', 195, '2025-02-09 18:44:08', '2025-02-09 18:44:08');
 
 -- --------------------------------------------------------
 
@@ -608,7 +616,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('6GTCx0C2Wa2yGduhL4bWlkf2halVjAILss89X1iC', 195, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoicTN3VTNVbm5YUUtHWU0weGRJOHhLMGNmTzljN1F4dnlrbnlncTBqRyI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozNDoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3Npc3dhL21hdGVyaSI7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjMzOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvZ3VydS9rb250ZW4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxOTU7fQ==', 1738941566);
+('4juvLDUHXNG4MX7PNStRi5BLsZ3GdJQg5QkWFVKz', 195, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZTlyRVN0N2dhaFE1UEhEb1VTTjhsajhacGpLbFl4MnF6Y2JIWHFKRiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ndXJ1L2tvbnRlbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE5NTt9', 1739158253);
 
 -- --------------------------------------------------------
 
@@ -794,8 +802,8 @@ CREATE TABLE `videos` (
 --
 
 INSERT INTO `videos` (`id`, `judul`, `mapel_id`, `kelas_id`, `file_path`, `link_youtube`, `created_at`, `updated_at`) VALUES
-(17, 'Bebas', 2, 2, NULL, 'https://www.youtube.com/watch?v=qUl5fArIdXg&list=RDNmxFxBiCrL4&index=12', '2025-02-07 07:43:28', '2025-02-07 07:43:28'),
-(18, 'Matematika', 2, 2, NULL, 'https://www.youtube.com/watch?v=qUl5fArIdXg&list=RDNmxFxBiCrL4&index=12', '2025-02-07 07:43:38', '2025-02-07 07:43:38');
+(19, 'Matematika', 2, 2, NULL, 'https://www.youtube.com/watch?v=OCsVhvusYgY', '2025-02-09 07:33:19', '2025-02-09 14:57:46'),
+(20, 'Bebas2', 2, 2, 'videos/cUAelDefpCtZrTRad58x9RiLTTdV6Dtar931hV7B.mp4', NULL, '2025-02-09 07:59:30', '2025-02-09 07:59:30');
 
 --
 -- Indexes for dumped tables
@@ -1128,7 +1136,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `konten`
 --
 ALTER TABLE `konten`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `mapels`
@@ -1206,7 +1214,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `videos`
 --
 ALTER TABLE `videos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
