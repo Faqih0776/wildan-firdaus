@@ -15,6 +15,7 @@ class AbsenController extends Controller
     public function index()
     {
         $absensi = Absensi::where('user_id', Auth::id())
+            ->whereDate('tanggal_absen', Carbon::today())
             ->orderBy('tanggal_absen', 'desc')
             ->get();
         $users = User::all();
@@ -47,7 +48,7 @@ class AbsenController extends Controller
         // Cek apakah sudah absen hari ini
         $sudahAbsen = Absensi::where('user_id', $users->id)->whereDate('created_at', today())->first();
         if ($sudahAbsen) {
-            return redirect()->route('siswa.absen.create')->with('error', 'Anda telah melakukan Absen Hari Ini!');
+            return redirect()->route('siswa.absen.index')->with('error', 'Anda telah melakukan Absen Hari Ini!');
         }
         $note = null;
         $latenessTime = Carbon::createFromTime(8, 0, 0, 'Asia/Jakarta');
