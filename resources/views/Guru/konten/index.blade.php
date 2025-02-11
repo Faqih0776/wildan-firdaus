@@ -114,7 +114,7 @@
                                             $youtubeId = $ytParams['v'] ?? null;
                                         @endphp
                                         @if($youtubeId)
-                                            <img src="https://img.youtube.com/vi/{{ $youtubeId }}/mqdefault.jpg">
+                                            <img style="width: 100%; height: 100%;" src="https://img.youtube.com/vi/{{ $youtubeId }}/mqdefault.jpg">
                                         @else
                                             <p class="text-danger">Invalid YouTube link.</p>
                                         @endif
@@ -131,7 +131,7 @@
                                     <h6 class="card-title text-success"><b>Judul : {{ $item->judul }}</b></h6>
                                     <p class="text-muted">Deskripsi: {{ $item->deskripsi }}</p>
                                     @if($item->link_youtube)
-                                    <a href="{{ $item->link_youtube }}" target="_blank" class="btn btn-view btn-sm">
+                                    <a href="{{ route('guru.konten.showYoutube', $item->id) }}" class="btn btn-view btn-sm">
                                         <i class="fab fa-youtube"></i> Lihat Materi
                                     </a>
                                     @else
@@ -175,7 +175,7 @@
                 <a href="{{ route('guru.konten.createlocal') }}" class="btn btn-custom me-2">
                     <i class="fas fa-upload"></i> Upload dari Lokal
                 </a>
-                <a href="{{ route('guru.manajemen-ujian.create') }}" class="btn btn-primary">
+                <a href="{{ route('guru.konten.createYoutube') }}" class="btn btn-primary">
                     <i class="fab fa-youtube"></i> Upload dari YouTube
                 </a>
             </div>

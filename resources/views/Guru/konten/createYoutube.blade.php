@@ -33,10 +33,10 @@
 <div class="container my-5">
     <div class="card shadow">
         <div class="card-header bg-primary text-white">
-            <h4 class="mb-0"><i class="fas fa-plus-circle"></i> Tambah Materi (Video Local)</h4>
+            <h4 class="mb-0"><i class="fas fa-plus-circle"></i> Tambah Materi (Youtube)</h4>
         </div>
         <div class="card-body">
-            <form action="{{ route('guru.konten.storeLocal') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('guru.konten.storeYoutube') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <!-- Judul Ujian -->
@@ -79,9 +79,8 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="video_path" class="form-label"><b>File Video</b></label>
-                    <input type="file" class="form-control" id="video_path" name="video_path" accept="video/*" required>
-                    <small class="text-muted">Ukuran maksimal: 100 MB</small>
+                    <label for="link_youtube" class="form-label"><b>Link YouTube</b></label>
+                    <input type="url" class="form-control" id="link_youtube" name="link_youtube" placeholder="https://youtube.com/..." required>
                 </div>
 
                 <!-- Tombol Simpan -->

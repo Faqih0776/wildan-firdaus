@@ -75,7 +75,13 @@ Route::prefix('guru')->middleware('auth')->group(function () {
     Route::get('/konten', [KontenController::class, 'index'])->name('guru.konten');
     Route::get('/konten/createlocal', [KontenController::class, 'createlocal'])->name('guru.konten.createlocal');
     Route::post('konten/storeLocal', [KontenController::class, 'storeLocal'])->name('guru.konten.storeLocal'); // Upload lokal
-    Route::get('/konten/{id}/detaillocal', [KontenController::class, 'showLocal'])->name('guru.konten.showLocal');    
+    Route::get('/konten/{id}/detaillocal', [KontenController::class, 'showLocal'])->name('guru.konten.showLocal');
+    Route::delete('/konten/{id}/local', [KontenController::class, 'destroyLocal'])->name('guru.konten.destroyLocal');
+    Route::put('/konten/{id}', [KontenController::class, 'updateLocal'])->name('guru.konten.updateLocal');
+    Route::get('/konten/createYoutube', [KontenController::class, 'createYoutube'])->name('guru.konten.createYoutube'); // 
+    Route::post('konten/storeYoutube', [KontenController::class, 'storeYoutube'])->name('guru.konten.storeYoutube'); //
+    Route::get('/konten/{id}/detailYoutube', [KontenController::class, 'showYoutube'])->name('guru.konten.showYoutube');
+    Route::delete('/konten/{id}', [KontenController::class, 'destroyYoutube'])->name('guru.konten.destroyYoutube');     
 });
 
 // =====================================================================================================================================

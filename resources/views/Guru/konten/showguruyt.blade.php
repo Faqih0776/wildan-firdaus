@@ -14,11 +14,11 @@
             <div class="row">
                 <!-- Kolom Kiri -->
                 <div class="col-md-6">
-                    <div class="mb-4">
+                    <div >
                         {{-- Tampilan Video --}}
-                        <div class="mb-4">
-                            <div class="mb-4">
-                                <div class="mb-4">
+                        <div >
+                            <div >
+                                <div >
                                     @if($konten->link_youtube)
                                         <!-- Parsing YouTube ID -->
                                         @php
@@ -26,7 +26,7 @@
                                             $youtubeId = $ytParams['v'] ?? null;
                                         @endphp
                                         @if($youtubeId)
-                                            <iframe src="https://www.youtube.com/embed/{{ $youtubeId }}" allowfullscreen></iframe>
+                                            <iframe style="width: 100%; height: 310px;" src="https://www.youtube.com/embed/{{ $youtubeId }}" allowfullscreen></iframe>
                                         @else
                                             <p class="text-danger">Invalid YouTube link.</p>
                                         @endif
@@ -71,7 +71,7 @@
                         <button class="btn btn-outline-primary" data-toggle="modal" data-target="#editMateriModal{{ $konten->id }}">
                             Edit Materi
                         </button>
-                        <form action="{{ route('guru.konten.destroyLocal', $konten->id) }}" method="POST" class="d-inline-block">
+                        <form action="{{ route('guru.konten.destroyYoutube', $konten->id) }}" method="POST" class="d-inline-block">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-outline-primary" style="border-color: #f44336; color: red;" onclick="return confirm('Apakah Anda yakin ingin menghapus item ini?')">
@@ -138,9 +138,8 @@
                                         <small>Upload file jika ingin mengganti</small>
                                     </div>
                                     <div class="form-group">
-                                        <label for="video_path">File Video</label>
-                                        <input type="file" name="video_path" class="form-control-file">
-                                        <small>Upload file jika ingin mengganti</small>
+                                        <label for="link_youtube" class="form-label"><b>Link YouTube</b></label>
+                                        <input type="url" class="form-control" id="link_youtube" name="link_youtube" value="{{ $konten->link_youtube }}" required>>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
