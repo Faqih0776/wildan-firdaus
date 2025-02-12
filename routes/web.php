@@ -68,7 +68,11 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('siswa')->middleware('auth')->group(function () {
     Route::get('/absen', [AbsenController::class, 'index'])->name('siswa.absen.index');
     Route::get('/absen/create', [AbsenController::class, 'create'])->name('siswa.absen.create');
-    Route::post('/absen', [AbsenController::class, 'store'])->name('siswa.absen.store');    
+    Route::post('/absen', [AbsenController::class, 'store'])->name('siswa.absen.store');
+    Route::get('/proyek', [SiswaController::class, 'proyek'])->name('siswa.proyek');
+    Route::get('/konten', [KontenController::class, 'indexsiswa'])->name('siswa.konten');
+    Route::get('/konten/{id}/detaillocal', [KontenController::class, 'showLocalSiswa'])->name('siswa.konten.showLocal');
+    Route::get('/konten/{id}/detailYoutube', [KontenController::class, 'showYoutubeSiswa'])->name('siswa.konten.showYoutube');    
 });
 Route::prefix('guru')->middleware('auth')->group(function () {
     Route::get('/proyek', [GuruController::class, 'proyek'])->name('guru.proyek');

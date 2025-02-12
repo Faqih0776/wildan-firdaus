@@ -323,4 +323,36 @@ public function createlocal()
 
         return redirect()->route('guru.konten')->with('success', 'Materi berhasil diperbarui');
     }
+
+    public function indexSiswa()
+    {
+        // Ambil kelas_id dari user yang sedang login
+        $kelasId = Auth::user()->kelas_id;
+
+        // Ambil materi sesuai kelas_id
+        $konten = Konten::with(['mapel', 'user'])
+                    ->where('kelas_id', $kelasId)
+                    ->orWhereNull('kelas_id') // Video untuk semua kelas
+                    ->get();
+
+        return view('siswa.konten.index', compact('konten'));
+    }
+
+    public function showLocalSiswa($id)
+    {
+
+        // Mengambil data materi berdasarkan ID
+        $konten = Konten::with(['mapel', 'kelas', 'user'])->findOrFail($id);
+
+        return view('siswa.konten.showsiswa', compact('konten'));
+    }
+
+    public function showYoutubeSiswa($id)
+    {
+
+        // Mengambil data materi berdasarkan ID
+        $konten = Konten::with(['mapel', 'kelas', 'user'])->findOrFail($id);
+
+        return view('siswa.konten.showsiswayt', compact('konten'));
+    }
 }

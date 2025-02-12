@@ -26,6 +26,13 @@
         </li>
 
         <li class="nav-item">
+          <a class="nav-link" href="{{route('guru.proyek')}}">
+            <i class="mdi mdi-note-check menu-icon"></i>
+            <span class="menu-title">Ruang Proyek</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" href="{{ route('auth.change-password') }}">
             <i class="mdi mdi-key-variant menu-icon"></i>
             <span class="menu-title">Ganti Password</span>
@@ -132,7 +139,12 @@
           <span class="menu-title">Absen</span>
         </a>
       </li>
-
+      <li class="nav-item">
+          <a class="nav-link" href="{{route('siswa.proyek')}}">
+            <i class="mdi mdi-note-check menu-icon"></i>
+            <span class="menu-title">Ruang Proyek</span>
+          </a>
+        </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('auth.change-password') }}">
           <i class="mdi mdi-key-variant menu-icon"></i>
