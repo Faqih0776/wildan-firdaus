@@ -26,7 +26,7 @@
                                             $youtubeId = $ytParams['v'] ?? null;
                                         @endphp
                                         @if($youtubeId)
-                                            <iframe style="width: 100%; height: 310px;" src="https://www.youtube.com/embed/{{ $youtubeId }}" allowfullscreen></iframe>
+                                            <iframe style="width: 100%; height: 390px;" src="https://www.youtube.com/embed/{{ $youtubeId }}" allowfullscreen></iframe>
                                         @else
                                             <p class="text-danger">Invalid YouTube link.</p>
                                         @endif
