@@ -18,7 +18,7 @@
         <div class="col-md-3">
             <div class="card text-center shadow-sm">
                 <div class="card-body">
-                    <a href="#" class="btn" style="background-color: blue; color: white;">Lihat Kelompok</a>
+                    <a href="{{ route('guru.project.kelompok') }}" class="btn" style="background-color: blue; color: white;">Lihat Kelompok</a>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="col-md-3 ">
             <div class="card text-center shadow-sm">
                 <div class="card-body">
-                    <a href="#" class="btn" style="background-color: blue; color: white;">Lihat Tugas Project</a>
+                    <a href="#" class="btn" style="background-color: blue; color: white;">Tugas Project</a>
                 </div>
             </div>
         </div>
