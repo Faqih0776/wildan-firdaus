@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 10, 2025 at 04:35 AM
+-- Generation Time: Feb 19, 2025 at 02:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -407,6 +407,28 @@ INSERT INTO `kelas` (`id`, `kode_kelas`, `nama_kelas`, `created_at`, `updated_at
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kelompok`
+--
+
+CREATE TABLE `kelompok` (
+  `id` int(11) NOT NULL,
+  `nama_kelompok` varchar(500) NOT NULL,
+  `kelas_id` int(50) NOT NULL,
+  `guru_id` int(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `kelompok`
+--
+
+INSERT INTO `kelompok` (`id`, `nama_kelompok`, `kelas_id`, `guru_id`, `created_at`, `updated_at`) VALUES
+(1, 'Baru', 2, 195, '2025-02-19 04:22:31', '2025-02-19 04:22:31');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `konten`
 --
 
@@ -429,7 +451,8 @@ CREATE TABLE `konten` (
 --
 
 INSERT INTO `konten` (`id`, `judul`, `deskripsi`, `mapel_id`, `kelas_id`, `file_path`, `link_youtube`, `video_path`, `user_id`, `created_at`, `updated_at`) VALUES
-(17, 'Bebas', 'bebas', 2, 2, 'uploads/materi/1739151847_Laporan Skripsi_124-141.pdf', NULL, 'videos/je8bw7vKXEOsFOBlbI9J7xjdwOa7fNZaGacHRlki.mp4', 195, '2025-02-09 18:44:08', '2025-02-09 18:44:08');
+(17, 'Bebas', 'bebas', 2, 2, 'uploads/materi/1739151847_Laporan Skripsi_124-141.pdf', NULL, 'videos/MbLDmS03QDFWGNjdsqRBEmxygK9KuBOpByagVvU7.mp4', 195, '2025-02-09 18:44:08', '2025-02-11 10:16:08'),
+(18, 'Matematika', 'bebasaja', 2, 2, 'uploads/materi/1739295220_Laporan Skripsi_124-141.pdf', 'https://www.youtube.com/watch?v=T_a80BauRgA', NULL, 195, '2025-02-11 10:33:40', '2025-02-11 10:33:40');
 
 -- --------------------------------------------------------
 
@@ -616,7 +639,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('4juvLDUHXNG4MX7PNStRi5BLsZ3GdJQg5QkWFVKz', 195, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZTlyRVN0N2dhaFE1UEhEb1VTTjhsajhacGpLbFl4MnF6Y2JIWHFKRiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ndXJ1L2tvbnRlbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE5NTt9', 1739158253);
+('9FtPkE1QpVHx5s58NzTXnjEJikORfK7Yai2v3Wby', 195, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSFpXQmJSTVkzSlcxdEJBUzVrVHVacjhXdVIwOWFnVWxhZmpqR0ZXMCI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozMzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2d1cnUvbWF0ZXJpIjt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ndXJ1L3Byb2plY3Qva2Vsb21wb2siO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxOTU7fQ==', 1739964151),
+('r6IBCYjB0eyA1YprdcuNCfGtZ97Wj8U9SFobdQuZ', 195, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiYWNnSzZreWRRZWJLRkdaYU5HVWxPMTlaMlFsN1IwaXJpbzBaU1BzdCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ndXJ1L3Byb2plY3Qva2Vsb21wb2siO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxOTU7fQ==', 1739942851);
 
 -- --------------------------------------------------------
 
@@ -676,14 +700,6 @@ CREATE TABLE `threads` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `threads`
---
-
-INSERT INTO `threads` (`id`, `user_id`, `title`, `content`, `created_at`, `updated_at`) VALUES
-(1, 203, 'Bagaimana konsep baling baling?', 'bagai mana ?', '2024-12-14 01:32:00', '2024-12-14 01:32:00'),
-(2, 203, 'Bagaimana konsep baling baling?', 'bagai mana ?', '2024-12-14 01:32:26', '2024-12-14 01:32:26');
 
 -- --------------------------------------------------------
 
@@ -928,6 +944,14 @@ ALTER TABLE `kelas`
   ADD UNIQUE KEY `kode_kelas` (`kode_kelas`);
 
 --
+-- Indexes for table `kelompok`
+--
+ALTER TABLE `kelompok`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kelas_id` (`kelas_id`),
+  ADD KEY `guru_id` (`guru_id`);
+
+--
 -- Indexes for table `konten`
 --
 ALTER TABLE `konten`
@@ -1058,7 +1082,7 @@ ALTER TABLE `videos`
 -- AUTO_INCREMENT for table `absensi`
 --
 ALTER TABLE `absensi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `balasan_pesan`
@@ -1133,10 +1157,16 @@ ALTER TABLE `kelas`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
+-- AUTO_INCREMENT for table `kelompok`
+--
+ALTER TABLE `kelompok`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `konten`
 --
 ALTER TABLE `konten`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `mapels`
