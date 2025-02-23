@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2025 at 02:44 PM
+-- Generation Time: Feb 24, 2025 at 12:02 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -221,6 +221,7 @@ CREATE TABLE `guru_mapels` (
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `mapel_id` bigint(20) UNSIGNED DEFAULT NULL,
   `kelas_id` int(10) UNSIGNED DEFAULT NULL,
+  `jurusan_id` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -229,13 +230,12 @@ CREATE TABLE `guru_mapels` (
 -- Dumping data for table `guru_mapels`
 --
 
-INSERT INTO `guru_mapels` (`id`, `user_id`, `mapel_id`, `kelas_id`, `created_at`, `updated_at`) VALUES
-(3, 196, 2, 1, '2024-10-11 09:47:42', '2024-10-11 09:47:42'),
-(4, 195, 2, 2, '2024-10-11 09:48:53', '2024-10-11 09:48:53'),
-(5, 196, 1, 2, '2024-10-24 22:51:30', '2025-01-29 19:03:19'),
-(6, 195, 6, 1, '2024-11-03 06:01:22', '2024-11-03 06:01:22'),
-(7, 195, 10, 1, '2024-11-03 06:10:44', '2024-11-03 06:10:44'),
-(8, 211, 4, 2, '2025-01-29 21:17:36', '2025-01-29 21:17:36');
+INSERT INTO `guru_mapels` (`id`, `user_id`, `mapel_id`, `kelas_id`, `jurusan_id`, `created_at`, `updated_at`) VALUES
+(3, 196, 2, 1, 1, '2024-10-11 09:47:42', '2025-02-23 09:15:24'),
+(4, 195, 2, 2, 1, '2024-10-11 09:48:53', '2025-02-23 09:15:30'),
+(8, 211, 4, 2, 2, '2025-01-29 21:17:36', '2025-02-23 09:15:58'),
+(9, 210, NULL, 15, 2, '2025-02-23 02:56:34', '2025-02-23 02:56:34'),
+(10, 195, NULL, 9, 1, '2025-02-23 05:09:47', '2025-02-23 05:09:47');
 
 -- --------------------------------------------------------
 
@@ -374,6 +374,28 @@ CREATE TABLE `job_batches` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `jurusan`
+--
+
+CREATE TABLE `jurusan` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `kode_jurusan` varchar(500) NOT NULL,
+  `nama_jurusan` varchar(500) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `jurusan`
+--
+
+INSERT INTO `jurusan` (`id`, `kode_jurusan`, `nama_jurusan`, `created_at`, `updated_at`) VALUES
+(1, 'KMP', 'Komputer', '2025-02-23 02:07:22', '2025-02-23 02:07:22'),
+(2, 'JRG', 'Jaringan', '2025-02-23 02:07:31', '2025-02-23 02:07:31');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kelas`
 --
 
@@ -414,6 +436,10 @@ CREATE TABLE `kelompok` (
   `id` int(11) NOT NULL,
   `nama_kelompok` varchar(500) NOT NULL,
   `kelas_id` int(50) NOT NULL,
+  `jurusan_id` int(50) UNSIGNED NOT NULL,
+  `user_id_1` int(50) UNSIGNED DEFAULT NULL,
+  `user_id_2` int(50) UNSIGNED DEFAULT NULL,
+  `user_id_3` int(50) UNSIGNED DEFAULT NULL,
   `guru_id` int(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -423,8 +449,9 @@ CREATE TABLE `kelompok` (
 -- Dumping data for table `kelompok`
 --
 
-INSERT INTO `kelompok` (`id`, `nama_kelompok`, `kelas_id`, `guru_id`, `created_at`, `updated_at`) VALUES
-(1, 'Baru', 2, 195, '2025-02-19 04:22:31', '2025-02-19 04:22:31');
+INSERT INTO `kelompok` (`id`, `nama_kelompok`, `kelas_id`, `jurusan_id`, `user_id_1`, `user_id_2`, `user_id_3`, `guru_id`, `created_at`, `updated_at`) VALUES
+(2, 'Baru', 2, 1, NULL, NULL, NULL, 195, '2025-02-20 17:34:10', '2025-02-20 17:34:10'),
+(3, 'Baru2', 9, 1, NULL, NULL, NULL, 195, '2025-02-23 15:36:27', '2025-02-23 15:36:27');
 
 -- --------------------------------------------------------
 
@@ -438,6 +465,7 @@ CREATE TABLE `konten` (
   `deskripsi` varchar(500) NOT NULL,
   `mapel_id` bigint(11) UNSIGNED NOT NULL,
   `kelas_id` int(11) UNSIGNED NOT NULL,
+  `jurusan_id` int(11) UNSIGNED NOT NULL,
   `file_path` varchar(500) NOT NULL,
   `link_youtube` varchar(500) DEFAULT NULL,
   `video_path` varchar(500) DEFAULT NULL,
@@ -450,9 +478,9 @@ CREATE TABLE `konten` (
 -- Dumping data for table `konten`
 --
 
-INSERT INTO `konten` (`id`, `judul`, `deskripsi`, `mapel_id`, `kelas_id`, `file_path`, `link_youtube`, `video_path`, `user_id`, `created_at`, `updated_at`) VALUES
-(17, 'Bebas', 'bebas', 2, 2, 'uploads/materi/1739151847_Laporan Skripsi_124-141.pdf', NULL, 'videos/MbLDmS03QDFWGNjdsqRBEmxygK9KuBOpByagVvU7.mp4', 195, '2025-02-09 18:44:08', '2025-02-11 10:16:08'),
-(18, 'Matematika', 'bebasaja', 2, 2, 'uploads/materi/1739295220_Laporan Skripsi_124-141.pdf', 'https://www.youtube.com/watch?v=T_a80BauRgA', NULL, 195, '2025-02-11 10:33:40', '2025-02-11 10:33:40');
+INSERT INTO `konten` (`id`, `judul`, `deskripsi`, `mapel_id`, `kelas_id`, `jurusan_id`, `file_path`, `link_youtube`, `video_path`, `user_id`, `created_at`, `updated_at`) VALUES
+(17, 'Bebas', 'bebas', 2, 2, 1, 'uploads/materi/1739151847_Laporan Skripsi_124-141.pdf', NULL, 'videos/MbLDmS03QDFWGNjdsqRBEmxygK9KuBOpByagVvU7.mp4', 195, '2025-02-09 18:44:08', '2025-02-11 10:16:08'),
+(18, 'Matematika', 'bebasaja', 2, 2, 1, 'uploads/materi/1739295220_Laporan Skripsi_124-141.pdf', 'https://www.youtube.com/watch?v=T_a80BauRgA', NULL, 195, '2025-02-11 10:33:40', '2025-02-11 10:33:40');
 
 -- --------------------------------------------------------
 
@@ -639,8 +667,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('9FtPkE1QpVHx5s58NzTXnjEJikORfK7Yai2v3Wby', 195, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSFpXQmJSTVkzSlcxdEJBUzVrVHVacjhXdVIwOWFnVWxhZmpqR0ZXMCI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozMzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2d1cnUvbWF0ZXJpIjt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ndXJ1L3Byb2plY3Qva2Vsb21wb2siO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxOTU7fQ==', 1739964151),
-('r6IBCYjB0eyA1YprdcuNCfGtZ97Wj8U9SFobdQuZ', 195, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiYWNnSzZreWRRZWJLRkdaYU5HVWxPMTlaMlFsN1IwaXJpbzBaU1BzdCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ndXJ1L3Byb2plY3Qva2Vsb21wb2siO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxOTU7fQ==', 1739942851);
+('o5HMZ1xDrch5vMBiIPQLqZVqD5t2U3VSUOEWdq3f', 195, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiRTlYSVUzMzlIUnZiU3lNVUxlRmd4U2RkZ2d3M0tYZ0tFOEthM0pRbCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ndXJ1L3Byb2plY3Qva2Vsb21wb2siO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxOTU7fQ==', 1740351723);
 
 -- --------------------------------------------------------
 
@@ -754,7 +781,7 @@ CREATE TABLE `ujian` (
 --
 
 INSERT INTO `ujian` (`id`, `judul`, `user_id`, `mapel_id`, `kelas_id`, `waktu_pengerjaan`, `info_ujian`, `bobot_pilihan_ganda`, `bobot_essay`, `terbit`, `created_at`, `updated_at`) VALUES
-(7, 'UNBK', 53, 2, 1, 60, 'KOMPUTER', 100, 100, 'Y', '2024-10-21 05:30:36', '2024-10-26 07:25:21'),
+(7, 'UNBK', 53, 2, 1, 60, 'KOMPUTER', 100, 100, 'Y', '2024-10-21 05:30:36', '2025-02-20 17:56:01'),
 (8, 'UTS', 53, 2, 1, 60, 'Matematika', 100, 100, 'Y', '2024-10-24 05:57:47', '2024-10-26 01:00:10'),
 (9, 'GIAT BELAJJAR', 53, 1, 8, 60, 'selamat mengerjakan', 100, 100, 'Y', '2024-10-25 01:18:20', '2024-10-25 01:18:20'),
 (10, 'tugas pertamana', 54, 1, 8, 60, 'selamat', 50, 50, 'Y', '2024-10-25 02:02:05', '2024-10-25 02:02:05'),
@@ -774,6 +801,8 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `foto` varchar(255) DEFAULT NULL,
   `kelas_id` int(50) UNSIGNED DEFAULT NULL,
+  `jurusan_id` int(50) UNSIGNED DEFAULT NULL,
+  `kelompok_id` int(50) UNSIGNED NOT NULL,
   `role` enum('admin','guru','siswa') NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -783,18 +812,18 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `foto`, `kelas_id`, `role`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@example.com', '$2y$12$ubduCaHOlp9ZlI9YhA3mXu.6HRgjL1HlynnaWWHdbOMMQ8ygWczOu', 'images/admin_photos/1733928658_Mahwa.jpeg', 0, 'admin', '2024-10-05 01:33:43', '2025-01-29 05:05:03'),
-(195, 'Purwani, S.Pd.', 'anugrah@gmail.com', '$2y$12$ErrC7I.Y1ZZYmP5p3.1cw.UA5.Yf0zaFNQXY7.VFKAxfHHiuNKgoO', '1732110431_nice.jpg', 0, 'guru', '2024-10-10 06:28:29', '2025-01-29 05:06:33'),
-(196, 'Sri Dwiatmining E., S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', '1733412409_Mahwa.jpeg', 0, 'guru', '2024-10-10 06:28:30', '2024-12-05 08:26:49'),
-(205, 'Pelangi', NULL, '$2y$12$mObK3Ru/N3.Tj58Nk./rm.gmFyUKIYgCKBtqKY1g4PtZN3VK3hfd6', NULL, 2, 'siswa', '2024-11-06 08:10:28', '2024-11-06 08:10:28'),
-(206, 'Pujito, S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 'guru', '2024-11-06 08:17:42', '2024-11-06 08:17:42'),
-(207, 'Joko Sugianto S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 'guru', '2024-11-06 08:17:43', '2024-11-06 08:17:43'),
-(208, 'Nyanto, S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 'guru', '2024-11-06 08:17:43', '2024-11-06 08:17:43'),
-(209, 'Sri Sumartini, S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 'guru', '2024-11-06 08:17:44', '2024-11-06 08:17:44'),
-(210, 'Siti Mutmainah,S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 'guru', '2024-11-06 08:17:44', '2024-11-06 08:17:44'),
-(211, 'Sulistamaji, S.Pd', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 'guru', '2024-11-06 08:17:45', '2024-11-06 08:17:45'),
-(212, 'Siswa 2', NULL, '$2y$12$mObK3Ru/N3.Tj58Nk./rm.gmFyUKIYgCKBtqKY1g4PtZN3VK3hfd6', NULL, 1, 'siswa', '2025-01-29 05:20:11', '2025-01-29 21:17:12');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `foto`, `kelas_id`, `jurusan_id`, `kelompok_id`, `role`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'admin@example.com', '$2y$12$ubduCaHOlp9ZlI9YhA3mXu.6HRgjL1HlynnaWWHdbOMMQ8ygWczOu', 'images/admin_photos/1733928658_Mahwa.jpeg', 0, 0, 0, 'admin', '2024-10-05 01:33:43', '2025-01-29 05:05:03'),
+(195, 'Purwani, S.Pd.', 'anugrah@gmail.com', '$2y$12$ErrC7I.Y1ZZYmP5p3.1cw.UA5.Yf0zaFNQXY7.VFKAxfHHiuNKgoO', '1732110431_nice.jpg', 0, 0, 0, 'guru', '2024-10-10 06:28:29', '2025-01-29 05:06:33'),
+(196, 'Sri Dwiatmining E., S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', '1733412409_Mahwa.jpeg', 0, 0, 0, 'guru', '2024-10-10 06:28:30', '2024-12-05 08:26:49'),
+(205, 'Pelangi', NULL, '$2y$12$mObK3Ru/N3.Tj58Nk./rm.gmFyUKIYgCKBtqKY1g4PtZN3VK3hfd6', NULL, 2, 2, 0, 'siswa', '2024-11-06 08:10:28', '2024-11-06 08:10:28'),
+(206, 'Pujito, S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 0, 0, 'guru', '2024-11-06 08:17:42', '2024-11-06 08:17:42'),
+(207, 'Joko Sugianto S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 0, 0, 'guru', '2024-11-06 08:17:43', '2024-11-06 08:17:43'),
+(208, 'Nyanto, S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 0, 0, 'guru', '2024-11-06 08:17:43', '2024-11-06 08:17:43'),
+(209, 'Sri Sumartini, S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 0, 0, 'guru', '2024-11-06 08:17:44', '2024-11-06 08:17:44'),
+(210, 'Siti Mutmainah,S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 0, 0, 'guru', '2024-11-06 08:17:44', '2024-11-06 08:17:44'),
+(211, 'Sulistamaji, S.Pd', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 0, 0, 'guru', '2024-11-06 08:17:45', '2024-11-06 08:17:45'),
+(212, 'Siswa 2', NULL, '$2y$12$mObK3Ru/N3.Tj58Nk./rm.gmFyUKIYgCKBtqKY1g4PtZN3VK3hfd6', NULL, 2, 1, 0, 'siswa', '2025-01-29 05:20:11', '2025-01-29 21:17:12');
 
 -- --------------------------------------------------------
 
@@ -896,7 +925,8 @@ ALTER TABLE `guru_mapels`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `mapel_id` (`mapel_id`),
-  ADD KEY `kelas_id` (`kelas_id`);
+  ADD KEY `kelas_id` (`kelas_id`),
+  ADD KEY `jurusan_id` (`jurusan_id`);
 
 --
 -- Indexes for table `hasil_ujian`
@@ -937,6 +967,12 @@ ALTER TABLE `job_batches`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `jurusan`
+--
+ALTER TABLE `jurusan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
@@ -949,7 +985,11 @@ ALTER TABLE `kelas`
 ALTER TABLE `kelompok`
   ADD PRIMARY KEY (`id`),
   ADD KEY `kelas_id` (`kelas_id`),
-  ADD KEY `guru_id` (`guru_id`);
+  ADD KEY `guru_id` (`guru_id`),
+  ADD KEY `jurusan_id` (`jurusan_id`),
+  ADD KEY `user_id_1` (`user_id_1`),
+  ADD KEY `user_id_2` (`user_id_2`),
+  ADD KEY `user_id_3` (`user_id_3`);
 
 --
 -- Indexes for table `konten`
@@ -958,7 +998,8 @@ ALTER TABLE `konten`
   ADD PRIMARY KEY (`id`) USING BTREE,
   ADD KEY `fk_gurus` (`user_id`),
   ADD KEY `fk_kelass` (`kelas_id`),
-  ADD KEY `fk_mapels` (`mapel_id`);
+  ADD KEY `fk_mapels` (`mapel_id`),
+  ADD KEY `jurusan_id` (`jurusan_id`);
 
 --
 -- Indexes for table `mapels`
@@ -1064,7 +1105,9 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `fk_kelas` (`kelas_id`);
+  ADD KEY `fk_kelas` (`kelas_id`),
+  ADD KEY `jurusan_id` (`jurusan_id`),
+  ADD KEY `kelompok_id` (`kelompok_id`);
 
 --
 -- Indexes for table `videos`
@@ -1124,7 +1167,7 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `guru_mapels`
 --
 ALTER TABLE `guru_mapels`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `hasil_ujian`
@@ -1151,6 +1194,12 @@ ALTER TABLE `jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `jurusan`
+--
+ALTER TABLE `jurusan`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
@@ -1160,7 +1209,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kelompok`
 --
 ALTER TABLE `kelompok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `konten`
@@ -1272,9 +1321,9 @@ ALTER TABLE `guru`
 -- Constraints for table `guru_mapels`
 --
 ALTER TABLE `guru_mapels`
-  ADD CONSTRAINT `guru_mapels_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `guru_mapels_ibfk_2` FOREIGN KEY (`mapel_id`) REFERENCES `mapels` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `guru_mapels_ibfk_3` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_kelassssss` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_mapelsssss` FOREIGN KEY (`mapel_id`) REFERENCES `mapels` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_usersssss` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `konten`

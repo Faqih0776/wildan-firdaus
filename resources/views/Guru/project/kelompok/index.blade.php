@@ -13,37 +13,52 @@
 
     <!-- Tabel -->
     <div class="card shadow">
-        @forelse ($kelompok as $data)
+        
         <div class="card-header bg-primary text-white">
             <h5 class="mb-0">Daftar Kelompok</h5>
         </div>
+        
         <div class="table-responsive">
             <table class="table table-bordered table-hover table-striped mb-0">
                 <thead class="bg-dark text-white">
                     <tr class="text-center">
                         <th>No</th>
                         <th>Kelas</th>
-                        <th>Nama</th>
+                        <th>Nama Kelompok</th>
                         <th>Anggota Kelompok</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($kelompok as $data)
                         <tr>
-                            <td class="text-center">{{ $loop->iteration }}</td>
-                            <td class="text-center">{{ $data->kelas->nama_kelas }}</td>
-                            <td class="text-center">{{ $data->nama_kelompok }}</td>
-                            <td class="text-center">{{ $data->nama_kelompok }}</td>
-                            <td class="text-center">{{ $data->nama_kelompok }}</td>
+                            <td rowspan="3" class="text-center">{{ $loop->iteration }}</td>
+                            <td rowspan="3" class="text-center">{{ $data->kelas->nama_kelas }}</td>
+                            <td rowspan="3" class="text-center">{{ $data->nama_kelompok }}</td>
+                            <td class="text-center">{{ $data->user_id_1 ?? 'Belum Ada Anggota' }}  </td>
+                            <td rowspan="3" class="text-center">
+                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editGuruMapelModal{{ $data->id }}">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-sm" onclick="confirmDelete({{ $data->id }})">
+                                    <i class="fas fa-trash-alt"></i> Hapus
+                                </button>
+                                <form id="delete-form-{{ $data->id }}" action="{{ route('admin.guru-jurusan.destroy', $data->id) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </td>
                         </tr>
+                        <tr>
+                            <td class="text-center">{{ $data->user_id_2 ?? 'Belum Ada Anggota' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">{{ $data->user_id_3 ?? 'Belum Ada Anggota' }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
-        @empty
-        <div class="card-header bg-primary text-white">
-            <h5 class="mb-0" style="text-align: center;">Belum Ada Kelompok</h5>
-        </div>
-        @endforelse
     </div>
     <!-- Modal Tambah -->
     <div class="modal fade" id="tambahKelompokModal" tabindex="-1" role="dialog" aria-labelledby="tambahKelompokModalLabel" aria-hidden="true">
