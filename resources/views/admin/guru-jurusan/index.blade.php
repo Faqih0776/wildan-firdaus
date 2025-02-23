@@ -2,7 +2,7 @@
 
 @section('konten')
 <div class="container mt-5">
-    <h2 class="text-center mb-4 text-primary">Daftar Guru Mapel</h2>
+    <h2 class="text-center mb-4 text-primary">Daftar Guru Jurusan</h2>
 
     @if (session('success'))
         <div class="alert alert-success">
@@ -11,7 +11,7 @@
     @endif
 
     <button class="btn btn-success mb-3" data-toggle="modal" data-target="#addGuruMapelModal">
-        <i class="fas fa-plus-circle"></i> Tambah Guru Mapel
+        <i class="fas fa-plus-circle"></i> Tambah Guru Jurusan
     </button>
 <div class="row">
     <div class="col-md-12">
@@ -22,7 +22,7 @@
                 <tr>
                     <th>No</th>
                     <th>Nama Pengajar</th>
-                    <th>Mata Pelajaran</th>
+                    <th>Jurusan</th>
                     <th>Kelas</th>
                     <th>Aksi</th>
                 </tr>
@@ -32,7 +32,7 @@
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $guruMapel->user ? $guruMapel->user->username : 'Tidak Ada Guru' }}</td>
-                    <td>{{ $guruMapel->mapel ? $guruMapel->mapel->nama_mapel : 'Tidak Ada Mapel' }}</td>
+                    <td>{{ $guruMapel->jurusan ? $guruMapel->jurusan->nama_jurusan : 'Tidak Ada Jurusan' }}</td>
                     <td>{{ $guruMapel->kelas ? $guruMapel->kelas->nama_kelas : 'Tidak Ada Kelas' }}</td>
                     <td>
                         <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editGuruMapelModal{{ $guruMapel->id }}">
@@ -41,7 +41,7 @@
                         <button class="btn btn-danger btn-sm" onclick="confirmDelete({{ $guruMapel->id }})">
                             <i class="fas fa-trash-alt"></i> Hapus
                         </button>
-                        <form id="delete-form-{{ $guruMapel->id }}" action="{{ route('admin.guru-mapel.destroy', $guruMapel->id) }}" method="POST" style="display: none;">
+                        <form id="delete-form-{{ $guruMapel->id }}" action="{{ route('admin.guru-jurusan.destroy', $guruMapel->id) }}" method="POST" style="display: none;">
                             @csrf
                             @method('DELETE')
                         </form>
@@ -59,7 +59,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{ route('admin.guru-mapel.update', $guruMapel->id) }}" method="POST">
+                                <form action="{{ route('admin.guru-jurusan.update', $guruMapel->id) }}" method="POST">
                                     @csrf
                                     @method('POST')
                                     <div class="form-group">
@@ -73,11 +73,11 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="mapel_id">Pilih Mata Pelajaran</label>
-                                        <select name="mapel_id" class="form-control" required>
-                                            <option value="">Pilih Mata Pelajaran</option>
-                                            @foreach($mapels as $mapel)
-                                                <option value="{{ $mapel->id }}" {{ $mapel->id == $guruMapel->mapel_id ? 'selected' : '' }}>{{ $mapel->nama_mapel }}</option>
+                                        <label for="jurusan_id">Pilih Jurusan</label>
+                                        <select name="jurusan_id" class="form-control" required>
+                                            <option value="">Pilih Jurusan</option>
+                                            @foreach($jurusan as $item)
+                                                <option value="{{ $item->id }}" {{ $item->id == $guruMapel->mapel_id ? 'selected' : '' }}>{{ $item->nama_jurusan }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -111,13 +111,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success text-white">
-                <h5 class="modal-title" id="addGuruMapelModalLabel">Tambah Guru Mapel</h5>
+                <h5 class="modal-title" id="addGuruMapelModalLabel">Tambah Guru Jurusan</h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('admin.guru-mapel.store') }}" method="POST">
+                <form action="{{ route('admin.guru-jurusan.store') }}" method="POST">
                     @csrf
 
                     <div class="form-group">
@@ -131,11 +131,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="mapel_id">Pilih Mata Pelajaran</label>
-                        <select name="mapel_id" class="form-control" required>
-                            <option value="">Pilih Mata Pelajaran</option>
-                            @foreach($mapels as $mapel)
-                                <option value="{{ $mapel->id }}">{{ $mapel->nama_mapel }}</option>
+                        <label for="jurusan_id">Pilih Jurusan</label>
+                        <select name="jurusan_id" class="form-control" required>
+                            <option value="">Pilih Jurusan</option>
+                            @foreach($jurusan as $item)
+                                <option value="{{ $item->id }}">{{ $item->nama_jurusan }}</option>
                             @endforeach
                         </select>
                     </div>

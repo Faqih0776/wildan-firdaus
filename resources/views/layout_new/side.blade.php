@@ -19,9 +19,9 @@
 
 
         <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.guru-mapel.index')}}">
+            <a class="nav-link" href="{{route('admin.guru-jurusan.index')}}">
                 <i class="fas fa-users-cog menu-icon"></i>
-            <span class="menu-title">Guru Mata Pelajaran</span>
+            <span class="menu-title">Guru Jurusan</span>
             </a>
         </li>
 
@@ -40,9 +40,9 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.mapel.index')}}">
+            <a class="nav-link" href="{{route('admin.jurusan.index')}}">
             <i class="mdi mdi-book-open-variant menu-icon"></i>
-            <span class="menu-title">Master Mapel</span>
+            <span class="menu-title">Master Jurusan</span>
             </a>
         </li>
 

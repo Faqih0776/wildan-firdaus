@@ -9,7 +9,7 @@ class GuruMapel extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'mapel_id', 'kelas_id'];
+    protected $fillable = ['user_id', 'mapel_id', 'kelas_id', 'jurusan_id'];
 
     public function kelas()
     {
@@ -24,5 +24,10 @@ class GuruMapel extends Model
     public function mapel()
     {
         return $this->belongsTo(Mapel::class, 'mapel_id'); // Pastikan foreign key sesuai
+    }
+
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class, 'jurusan_id'); // Pastikan foreign key sesuai
     }
 }

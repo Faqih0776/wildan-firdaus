@@ -15,6 +15,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\JurusanController;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\GuruMapelController;
@@ -276,6 +277,52 @@ Route::prefix('guru')->middleware('auth')->group(function () {
 // =====================================================================================================================================
 // =====================================================================================================================================
 
+    // Route untuk daftar Jurusan
+    Route::get('/admin/jurusan', function () {
+        return (new RoleMiddleware)->handle(request(), function () {
+            return app()->call('App\Http\Controllers\JurusanController@index');
+        }, 'admin');
+    })->name('admin.jurusan.index');
+
+    // Route untuk form tambah Jurusan
+    Route::get('/admin/jurusan/create', function () {
+        return (new RoleMiddleware)->handle(request(), function () {
+            return app()->call('App\Http\Controllers\JurusanController@create');
+        }, 'admin');
+    })->name('admin.jurusan.create');
+
+    // Route untuk menyimpan Jurusan baru
+    Route::post('/admin/jurusan/store', function () {
+        return (new RoleMiddleware)->handle(request(), function () {
+            return app()->call('App\Http\Controllers\JurusanController@store');
+        }, 'admin');
+    })->name('admin.jurusan.store');
+
+    // Route untuk edit Jurusan
+    Route::get('/admin/jurusan/edit/{id}', function ($id) {
+        return (new RoleMiddleware)->handle(request(), function () use ($id) {
+            return app()->call('App\Http\Controllers\JurusanController@edit', ['id' => $id]);
+        }, 'admin');
+    })->name('admin.jurusan.edit');
+
+    // Route untuk update Jurusan
+    Route::post('/admin/jurusan/update/{id}', function ($id) {
+        return (new RoleMiddleware)->handle(request(), function () use ($id) {
+            return app()->call('App\Http\Controllers\JurusanController@update', ['id' => $id]);
+        }, 'admin');
+    })->name('admin.jurusan.update');
+
+    // Route untuk delete Jurusan
+    Route::delete('/admin/jurusan/delete/{id}', function ($id) {
+        return (new RoleMiddleware)->handle(request(), function () use ($id) {
+            return app()->call('App\Http\Controllers\JurusanController@destroy', ['id' => $id]);
+        }, 'admin');
+    })->name('admin.jurusan.delete');
+
+
+// =====================================================================================================================================
+// =====================================================================================================================================
+
 
      // Route untuk daftar kelas (hanya admin yang bisa mengakses)
      Route::get('/admin/kelas', function () {
@@ -324,46 +371,46 @@ Route::prefix('guru')->middleware('auth')->group(function () {
 // =====================================================================================================================================
 
     // Route untuk daftar Guru dengan Mata Pelajaran
-    Route::get('/admin/guru-mapel', function () {
+    Route::get('/admin/guru-jurusan', function () {
         return (new RoleMiddleware)->handle(request(), function () {
             return app()->call('App\Http\Controllers\GuruMapelController@index');
         }, 'admin');
-    })->name('admin.guru-mapel.index');
+    })->name('admin.guru-jurusan.index');
 
     // Route untuk form tambah Guru ke Mata Pelajaran
-    Route::get('/admin/guru-mapel/create', function () {
+    Route::get('/admin/guru-jurusan/create', function () {
         return (new RoleMiddleware)->handle(request(), function () {
             return app()->call('App\Http\Controllers\GuruMapelController@create');
         }, 'admin');
-    })->name('admin.guru-mapel.create');
+    })->name('admin.guru-jurusan.create');
 
     // Route untuk menyimpan Guru ke Mata Pelajaran baru
-    Route::post('/admin/guru-mapel/store', function () {
+    Route::post('/admin/guru-jurusan/store', function () {
         return (new RoleMiddleware)->handle(request(), function () {
             return app()->call('App\Http\Controllers\GuruMapelController@store');
         }, 'admin');
-    })->name('admin.guru-mapel.store');
+    })->name('admin.guru-jurusan.store');
 
     // Route untuk edit mata pelajaran
-    Route::get('/admin/guru-mapel/edit/{id}', function ($id) {
+    Route::get('/admin/guru-jurusan/edit/{id}', function ($id) {
         return (new RoleMiddleware)->handle(request(), function () use ($id) {
             return app()->call('App\Http\Controllers\GuruMapelController@edit', ['id' => $id]);
         }, 'admin');
-    })->name('admin.guru-mapel.edit');
+    })->name('admin.guru-jurusan.edit');
 
     // Route untuk update Guru ke Mata Pelajaran
-    Route::post('/admin/guru-mapel/update/{id}', function ($id) {
+    Route::post('/admin/guru-jurusan/update/{id}', function ($id) {
         return (new RoleMiddleware)->handle(request(), function () use ($id) {
             return app()->call('App\Http\Controllers\GuruMapelController@update', ['id' => $id]);
         }, 'admin');
-    })->name('admin.guru-mapel.update');
+    })->name('admin.guru-jurusan.update');
 
     // Route untuk delete Guru ke Mata Pelajaran
-    Route::delete('/admin/guru-mapel/destroy/{id}', function ($id) {
+    Route::delete('/admin/guru-jurusan/destroy/{id}', function ($id) {
         return (new RoleMiddleware)->handle(request(), function () use ($id) {
             return app()->call('App\Http\Controllers\GuruMapelController@destroy', ['id' => $id]);
         }, 'admin');
-    })->name('admin.guru-mapel.destroy');
+    })->name('admin.guru-jurusan.destroy');
 
 
 

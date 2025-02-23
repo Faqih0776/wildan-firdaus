@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Course;
+use App\Models\Jurusan;
 use App\Models\Siswa; // pastikan Anda telah membuat model Siswa
 use App\Models\Guru; // pastikan Anda telah membuat model Guru
 use App\Imports\SiswaImport;
@@ -96,10 +97,10 @@ public function updateProfil(Request $request, $id)
         // Misalnya mengambil jumlah siswa, guru, dll.
         // Contoh data untuk ditampilkan di dashboard
         $totalUser = User::count();
-        $totalMataPelajaran = Course::count();
+        $totalJurusan = Jurusan::count();
         $kelas = Kelas::all(); // Mengambil semua kelas
 
-    return view('admin.dashboard', compact('totalUser', 'totalMataPelajaran', 'kelas'));
+    return view('admin.dashboard', compact('totalUser', 'totalJurusan', 'kelas'));
     }
 
 // ==================================================================================================================
