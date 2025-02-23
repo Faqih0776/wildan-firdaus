@@ -198,6 +198,15 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="jurusan_id">Jurusan:</label>
+                                    <select name="jurusan_id" id="jurusan_id" class="form-control" required>
+                                        <option value="">Pilih Jurusan</option>
+                                        @foreach ($jurusan as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama_jurusan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
                                 <div class="form-group">
                                     <label for="gender">Gender:</label>
@@ -235,6 +244,7 @@
                                 <th>Nama</th>
                                 <th>Telepon</th>
                                 <th>Kelas</th>
+                                <th>Jurusan</th>
                                 <th>Gender</th>
                                 <th>Alamat</th>
                                 <th>Tanggal Lahir</th>
@@ -250,6 +260,7 @@
                                 <th>Nama</th>
                                 <th>Telepon</th>
                                 <th>Kelas</th>
+                                <th>Jurusan</th>
                                 <th>Gender</th>
                                 <th>Alamat</th>
                                 <th>Tanggal Lahir</th>
@@ -272,6 +283,7 @@
                                 <td>{{ $user->username }}</td> <!-- Akses username dari tabel users -->
                                 <td>{{ $user->siswa->telepon }}</td> <!-- Akses telepon dari relasi siswa -->
                                 <td>{{ $user->kelas ? $user->kelas->nama_kelas : 'Tidak ada kelas' }}</td> <!-- Cek jika kelas ada -->
+                                <td>{{ $user->jurusan ? $user->jurusan->nama_jurusan : 'Belum Input Jurusan' }}</td> <!-- Cek jika kelas ada -->
                                 <td>{{ $user->siswa->gender }}</td> <!-- Akses gender dari relasi siswa -->
                                 <td>{{ $user->siswa->alamat }}</td> <!-- Akses alamat dari relasi siswa -->
                                 <td>{{ $user->siswa->tgl_lahir }}</td> <!-- Akses tanggal lahir dari relasi siswa -->
@@ -317,6 +329,15 @@
                                                                         <option value="">Pilih Kelas</option>
                                                                         @foreach ($kelas as $k)
                                                                             <option value="{{ $k->id }}" {{ $k->id == $user->kelas->nama_kelas ? 'selected' : '' }}>{{ $k->nama_kelas }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="jurusan_id">Jurusan:</label>
+                                                                    <select name="jurusan_id" id="jurusan_id" class="form-control" required>
+                                                                        <option value="">Pilih Jurusan</option>
+                                                                        @foreach ($jurusan as $item)
+                                                                            <option value="{{ $item->id }}" {{ $item->id == $user->jurusan->nama_jurusan ? 'selected' : '' }}>{{ $item->nama_jurusan }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>

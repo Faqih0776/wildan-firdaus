@@ -176,9 +176,10 @@ public function updateProfil(Request $request, $id)
     public function listSiswa()
     {
         $kelas = Kelas::all(); // Mengambil semua kelas
+        $jurusan = Jurusan::all(); // Mengambil semua kelas
         $users = User::has('siswa')->where('role', 'siswa')->get();
 
-        return view('admin.siswa.index', compact('users','kelas'));
+        return view('admin.siswa.index', compact('users','kelas','jurusan'));
     }
 
     // Form tambah siswa
@@ -193,6 +194,7 @@ public function updateProfil(Request $request, $id)
         'username' => 'required|string|max:255|unique:users,username',
         'telepon' => 'required|string|max:20',
         'kelas_id' => 'required|exists:kelas,id',
+        'jurusan_id' => 'required|exists:jurusan,id',
         'gender' => 'required|in:Laki-laki,Perempuan',
         'alamat' => 'required|string|max:255',
         'tgl_lahir' => 'required|string|max:30',
@@ -207,6 +209,7 @@ public function updateProfil(Request $request, $id)
         'password' => bcrypt('123456'),
         'role' => 'siswa',
         'kelas_id' => $request->kelas_id,
+        'jurusan_id' => $request->jurusan_id,
         'foto' => $defaultPhoto, // Menambahkan foto profil default
     ]);
 
@@ -237,8 +240,8 @@ public function updateProfil(Request $request, $id)
         'nisn' => 'required|string|max:15',
         'username' => 'required|string|max:255',
         'telepon' => 'required|string|max:20',
-        'kelas_id' => 'required|string|max:10',
-        'gender' => 'required|string|max:10',
+        'kelas_id' => 'required|exists:kelas,id',
+        'jurusan_id' => 'required|exists:jurusan,id',
         'alamat' => 'required|string|max:255',
         'tgl_lahir' => 'required|string|max:30',
         'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
@@ -250,6 +253,7 @@ public function updateProfil(Request $request, $id)
     $user->update([
         'username' => $request->username,
         'kelas_id' => $request->kelas_id,
+        'jurusan_id' => $request->jurusan_id,
     ]);
 
     // Cari data siswa terkait dan update detail khusus siswa

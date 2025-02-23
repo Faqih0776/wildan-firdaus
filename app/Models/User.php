@@ -88,4 +88,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(JawabanSiswaEssay::class, 'siswa_id');
     }
+
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class, 'jurusan_id'); // Pastikan foreign key sesuai
+    }
 }
