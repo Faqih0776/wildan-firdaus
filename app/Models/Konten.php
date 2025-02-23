@@ -32,4 +32,8 @@ class Konten extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class, 'jurusan_id'); // Pastikan foreign key sesuai
+    }
 }

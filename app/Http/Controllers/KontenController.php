@@ -17,10 +17,10 @@ class KontenController extends Controller
 {
     $userId = auth()->user()->id; // ID user yang login
 
-    // Ambil mata pelajaran yang diampu oleh guru
-    $mapel = GuruMapel::where('user_id', $userId)
-            ->join('mapels', 'guru_mapels.mapel_id', '=', 'mapels.id')
-            ->select('mapels.id', 'mapels.nama_mapel')
+    // Ambil mata jurusan yang diampu oleh guru
+    $jurusan = GuruMapel::where('user_id', $userId)
+            ->join('jurusan', 'guru_mapels.jurusan_id', '=', 'jurusan.id')
+            ->select('jurusan.id', 'jurusan.nama_jurusan')
             ->distinct()
             ->get();
 
@@ -31,29 +31,29 @@ class KontenController extends Controller
             ->distinct()
             ->get();
 
-    // Ambil video yang hanya terkait dengan mata pelajaran dan kelas yang diampu
-    $konten = Konten::with(['mapel', 'kelas']) // Pastikan relasi mapel dan kelas diload
-            ->whereHas('mapel', function ($query) use ($mapel) {
-                $query->whereIn('id', $mapel->pluck('id')); // Filter berdasarkan mata pelajaran
+    // Ambil video yang hanya terkait dengan jurusan dan kelas yang diampu
+    $konten = Konten::with(['jurusan', 'kelas']) // Pastikan relasi jurusan dan kelas diload
+            ->whereHas('jurusan', function ($query) use ($jurusan) {
+                $query->whereIn('id', $jurusan->pluck('id')); // Filter berdasarkan jurusan
             })
             ->whereHas('kelas', function ($query) use ($kelas) {
                 $query->whereIn('id', $kelas->pluck('id')); // Filter berdasarkan kelas
             })
             ->get();
 
-    return view('guru.konten.index', compact('konten', 'kelas', 'mapel'));
+    return view('guru.konten.index', compact('konten', 'kelas', 'jurusan'));
 }
 
 public function createlocal()
     {
         $userId = auth()->user()->id; // ID user yang login
 
-        // Ambil mata pelajaran yang diampu oleh guru
-        $mapels = GuruMapel::where('user_id', $userId)
-                ->join('mapels', 'guru_mapels.mapel_id', '=', 'mapels.id')
-                ->select('mapels.id', 'mapels.nama_mapel')
-                ->distinct()
-                ->get();
+        // Ambil mata jurusan yang diampu oleh guru
+        $jurusan = GuruMapel::where('user_id', $userId)
+        ->join('jurusan', 'guru_mapels.jurusan_id', '=', 'jurusan.id')
+        ->select('jurusan.id', 'jurusan.nama_jurusan')
+        ->distinct()
+        ->get();
     
         // Ambil kelas yang diampu oleh guru
         $kelases = GuruMapel::where('user_id', $userId)
@@ -63,7 +63,7 @@ public function createlocal()
                 ->get();
 
         // Mengirim semua variabel ke view
-        return view('guru.konten.createlocal', compact('mapels', 'kelases'));
+        return view('guru.konten.createlocal', compact('jurusan', 'kelases'));
     }
 
     // Simpan video dari file lokal
@@ -72,7 +72,7 @@ public function createlocal()
         $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string|max:500',
-            'mapel_id' => 'required|string|max:255',
+            'jurusan_id' => 'required|string|max:255',
             'kelas_id' => 'required|string|max:255',
             'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
             'video_path' => 'required|file|mimes:mp4,avi,mkv|max:102400', // Maksimal 100MB (102400 KB)
@@ -96,7 +96,7 @@ public function createlocal()
         Konten::create([
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
-            'mapel_id' => $request->mapel_id,
+            'jurusan_id' => $request->jurusan_id,
             'kelas_id' => $request->kelas_id,
             'file_path' => $filePath,
             'video_path' => $filePaths,
@@ -110,11 +110,11 @@ public function createlocal()
         $userId = auth()->user()->id; // ID user yang login
 
         // Ambil mata pelajaran yang diampu oleh guru
-        $mapel = GuruMapel::where('user_id', $userId)
-                ->join('mapels', 'guru_mapels.mapel_id', '=', 'mapels.id')
-                ->select('mapels.id', 'mapels.nama_mapel')
-                ->distinct()
-                ->get();
+        $jurusan = GuruMapel::where('user_id', $userId)
+            ->join('jurusan', 'guru_mapels.jurusan_id', '=', 'jurusan.id')
+            ->select('jurusan.id', 'jurusan.nama_jurusan')
+            ->distinct()
+            ->get();
 
         // Ambil kelas yang diampu oleh guru
         $kelas = GuruMapel::where('user_id', $userId)
@@ -126,7 +126,7 @@ public function createlocal()
         // Mengambil data materi berdasarkan ID
         $konten = Konten::with(['mapel', 'kelas', 'user'])->findOrFail($id);
 
-        return view('guru.konten.showguru', compact('konten', 'kelas', 'mapel'));
+        return view('guru.konten.showguru', compact('konten', 'kelas', 'jurusan'));
     }
 
     public function destroyLocal($id)
@@ -142,7 +142,7 @@ public function createlocal()
         $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string|max:500',
-            'mapel_id' => 'required|integer',
+            'jurusan_id' => 'required|integer',
             'kelas_id' => 'required|integer',
             'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
             'video_path' => 'required|file|mimes:mp4,avi,mkv|max:102400',
@@ -152,7 +152,7 @@ public function createlocal()
 
         $konten->judul = $request->judul;
         $konten->deskripsi = $request->deskripsi;
-        $konten->mapel_id = $request->mapel_id;
+        $konten->jurusan_id = $request->jurusan_id;
         $konten->kelas_id = $request->kelas_id;
 
         if ($request->hasFile('file')) {
@@ -197,11 +197,11 @@ public function createlocal()
         $userId = auth()->user()->id; // ID user yang login
 
         // Ambil mata pelajaran yang diampu oleh guru
-        $mapels = GuruMapel::where('user_id', $userId)
-                ->join('mapels', 'guru_mapels.mapel_id', '=', 'mapels.id')
-                ->select('mapels.id', 'mapels.nama_mapel')
-                ->distinct()
-                ->get();
+        $jurusan = GuruMapel::where('user_id', $userId)
+            ->join('jurusan', 'guru_mapels.jurusan_id', '=', 'jurusan.id')
+            ->select('jurusan.id', 'jurusan.nama_jurusan')
+            ->distinct()
+            ->get();
     
         // Ambil kelas yang diampu oleh guru
         $kelases = GuruMapel::where('user_id', $userId)
@@ -211,7 +211,7 @@ public function createlocal()
                 ->get();
 
         // Mengirim semua variabel ke view
-        return view('guru.konten.createYoutube', compact('mapels', 'kelases'));
+        return view('guru.konten.createYoutube', compact('jurusan', 'kelases'));
     }
 
     // Simpan video dari file lokal
@@ -220,7 +220,7 @@ public function createlocal()
         $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string|max:500',
-            'mapel_id' => 'required|string|max:255',
+            'jurusan_id' => 'required|string|max:255',
             'kelas_id' => 'required|string|max:255',
             'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
             'link_youtube' => 'required|url',
@@ -243,7 +243,7 @@ public function createlocal()
         Konten::create([
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
-            'mapel_id' => $request->mapel_id,
+            'jurusan_id' => $request->jurusan_id,
             'kelas_id' => $request->kelas_id,
             'file_path' => $filePath,
             'link_youtube' => $request->link_youtube,
@@ -257,11 +257,11 @@ public function createlocal()
         $userId = auth()->user()->id; // ID user yang login
 
         // Ambil mata pelajaran yang diampu oleh guru
-        $mapel = GuruMapel::where('user_id', $userId)
-                ->join('mapels', 'guru_mapels.mapel_id', '=', 'mapels.id')
-                ->select('mapels.id', 'mapels.nama_mapel')
-                ->distinct()
-                ->get();
+        $jurusan = GuruMapel::where('user_id', $userId)
+            ->join('jurusan', 'guru_mapels.jurusan_id', '=', 'jurusan.id')
+            ->select('jurusan.id', 'jurusan.nama_jurusan')
+            ->distinct()
+            ->get();
 
         // Ambil kelas yang diampu oleh guru
         $kelas = GuruMapel::where('user_id', $userId)
@@ -273,7 +273,7 @@ public function createlocal()
         // Mengambil data materi berdasarkan ID
         $konten = Konten::with(['mapel', 'kelas', 'user'])->findOrFail($id);
 
-        return view('guru.konten.showguruyt', compact('konten', 'kelas', 'mapel'));
+        return view('guru.konten.showguruyt', compact('konten', 'kelas', 'jurusan'));
     }
 
     public function destroyYoutube($id)
@@ -289,7 +289,7 @@ public function createlocal()
         $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string|max:500',
-            'mapel_id' => 'required|integer',
+            'jurusan_id' => 'required|integer',
             'kelas_id' => 'required|integer',
             'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
             'link_youtube' => 'required|url',
@@ -299,7 +299,7 @@ public function createlocal()
 
         $konten->judul = $request->judul;
         $konten->deskripsi = $request->deskripsi;
-        $konten->mapel_id = $request->mapel_id;
+        $konten->jurusan_id = $request->jurusan_id;
         $konten->kelas_id = $request->kelas_id;
         $konten->link_youtube = $request->link_youtube;
 
@@ -328,11 +328,14 @@ public function createlocal()
     {
         // Ambil kelas_id dari user yang sedang login
         $kelasId = Auth::user()->kelas_id;
+        $jurusanid = Auth::user()->jurusan_id;
 
         // Ambil materi sesuai kelas_id
-        $konten = Konten::with(['mapel', 'user'])
+        $konten = Konten::with(['mapel', 'user', 'jurusan'])
                     ->where('kelas_id', $kelasId)
+                    ->where('jurusan_id', $jurusanid)
                     ->orWhereNull('kelas_id') // Video untuk semua kelas
+                    ->orWhereNull('jurusan_id') // Video untuk semua jurusan
                     ->get();
 
         return view('siswa.konten.index', compact('konten'));
@@ -342,7 +345,7 @@ public function createlocal()
     {
 
         // Mengambil data materi berdasarkan ID
-        $konten = Konten::with(['mapel', 'kelas', 'user'])->findOrFail($id);
+        $konten = Konten::findOrFail($id);
 
         return view('siswa.konten.showsiswa', compact('konten'));
     }
@@ -351,7 +354,7 @@ public function createlocal()
     {
 
         // Mengambil data materi berdasarkan ID
-        $konten = Konten::with(['mapel', 'kelas', 'user'])->findOrFail($id);
+        $konten = Konten::findOrFail($id);
 
         return view('siswa.konten.showsiswayt', compact('konten'));
     }

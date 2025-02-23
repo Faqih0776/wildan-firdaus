@@ -53,11 +53,11 @@
 
                 <!-- Mata Pelajaran -->
                 <div class="form-group mb-3">
-                    <label for="mapel" class="form-label"><strong>Mata Pelajaran</strong></label>
-                    <select class="form-control" id="mapel_id" name="mapel_id" required>
+                    <label for="jurusan_id" class="form-label"><strong>Mata Pelajaran</strong></label>
+                    <select class="form-control" id="jurusan_id" name="jurusan_id" required>
                         <option value="" disabled selected>Pilih mata pelajaran</option>
-                        @foreach($mapels as $mapel)
-                            <option value="{{ $mapel->id }}">{{ $mapel->nama_mapel }}</option>
+                        @foreach($jurusan as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama_jurusan }}</option>
                         @endforeach
                     </select>
                 </div>

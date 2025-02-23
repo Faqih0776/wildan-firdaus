@@ -115,11 +115,11 @@
                                         <input type="text" name="deskripsi" class="form-control" value="{{ $konten->deskripsi }}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="mapel_id">Mata Pelajaran</label>
-                                        <select name="mapel_id" class="form-control" required>
-                                            <option value="" disabled selected>Pilih Mata Pelajaran</option>
-                                            @foreach($mapel as $mapels)
-                                                <option value="{{ $mapels->id }}" {{ $konten->mapel_id == $mapels->id ? 'selected' : '' }}>{{ $mapels->nama_mapel }}</option>
+                                        <label for="jurusan_id">Jurusan</label>
+                                        <select name="jurusan_id" class="form-control" required>
+                                            <option value="" disabled selected>Pilih Jurusan</option>
+                                            @foreach($jurusan as $item)
+                                                <option value="{{ $item->id }}" {{ $konten->jurusan_id == $item->id ? 'selected' : '' }}>{{ $item->nama_jurusan }}</option>
                                             @endforeach
                                         </select>
                                     </div>

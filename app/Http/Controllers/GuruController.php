@@ -20,20 +20,19 @@ class GuruController extends Controller
     $guruId = auth()->id();
 
     // Mengambil data kelas dan mapel yang diampu guru dari tabel guru_mapels
-    $guruMapels = GuruMapel::with(['kelas', 'mapel'])
-        ->where('user_id', $guruId)
-        ->get();
-
+    $guruJurusan = GuruMapel::with(['kelas', 'jurusan'])
+    ->where('user_id', $guruId)
+    ->get();
     // Mengambil data materi yang di-upload oleh guru yang sedang login
     $materi = Materi::where('user_id', $guruId)->get();
 
     // Mengambil data siswa yang berada di kelas yang diajar oleh guru
-    $kelasIds = $guruMapels->pluck('kelas_id'); // Mengambil ID kelas yang diajar oleh guru
+    $kelasIds = $guruJurusan->pluck('kelas_id'); // Mengambil ID kelas yang diajar oleh guru
     $siswa = User::whereIn('kelas_id', $kelasIds)
         ->where('role', 'siswa')
         ->get();
 
-    return view('guru.index', compact('guruMapels', 'siswa', 'materi'));
+    return view('guru.index', compact('siswa', 'materi', 'guruJurusan'));
 }
 
 public function proyek()
@@ -42,25 +41,25 @@ public function proyek()
     $guruId = auth()->id();
 
     // Mengambil data kelas dan mapel yang diampu guru dari tabel guru_mapels
-    $guruMapels = GuruMapel::with(['kelas', 'mapel'])
-        ->where('user_id', $guruId)
-        ->get();
+    $guruJurusan = GuruMapel::with(['kelas', 'jurusan'])
+    ->where('user_id', $guruId)
+    ->get();
 
     // Mengambil data materi yang di-upload oleh guru yang sedang login
     $materi = Materi::where('user_id', $guruId)->get();
 
     // Mengambil data siswa yang berada di kelas yang diajar oleh guru
-    $kelasIds = $guruMapels->pluck('kelas_id'); // Mengambil ID kelas yang diajar oleh guru
+    $kelasIds = $guruJurusan->pluck('kelas_id'); // Mengambil ID kelas yang diajar oleh guru
     $siswa = User::whereIn('kelas_id', $kelasIds)
         ->where('role', 'siswa')
         ->get();
 
-    return view('guru.proyek', compact('guruMapels', 'siswa', 'materi'));
+    return view('guru.proyek', compact('guruJurusan', 'siswa', 'materi'));
 }
     // Tampilkan profil guru
     public function show($id)
     {
-        $guru = Guru::with('user')->findOrFail($id); // Mengambil siswa beserta user-nya
+        $guru = Guru::with('user')->findOrFail($id); // Mengambil data guru
         return view('guru.profil_guru', compact('guru'));
     }
 
