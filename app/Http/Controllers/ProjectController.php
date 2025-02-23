@@ -27,7 +27,7 @@ class ProjectController extends Controller
                 ->get();
 
     $kelases = GuruMapel::where('user_id', auth()->id())
-                ->with(['kelas'])
+                ->with(['kelas', 'jurusan'])
                 ->get();
     return view('guru.project.kelompok.index', compact('kelompok','kelases'));
 }

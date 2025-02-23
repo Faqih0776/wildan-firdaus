@@ -71,6 +71,15 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="jurusan_id">Jurusan</label>
+                            <select name="jurusan_id" class="form-control" id="jurusan_id" required>
+                                <option value="" disabled selected>Pilih Jurusan</option>
+                                @foreach($kelases as $item)
+                                    <option value="{{ $item->jurusan->id }}">{{ $item->jurusan->nama_jurusan }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
