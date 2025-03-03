@@ -26,7 +26,7 @@
                         <th>Kelas</th>
                         <th>Nama Kelompok</th>
                         <th>Anggota Kelompok</th>
-                        <th>Aksi</th>
+                        <th style="width:20%;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,9 +37,9 @@
                             <td rowspan="3" class="text-center">{{ $data->nama_kelompok }}</td>
                             <td class="text-center">{{ $data->user_id_1 ?? 'Belum Ada Anggota' }}  </td>
                             <td rowspan="3" class="text-center">
-                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editGuruMapelModal{{ $data->id }}">
+                                <a href="{{ route('guru.project.editkelompok', $data->id) }}" class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i> Edit
-                                </button>
+                                </a>
                                 <button class="btn btn-danger btn-sm" onclick="confirmDelete({{ $data->id }})">
                                     <i class="fas fa-trash-alt"></i> Hapus
                                 </button>

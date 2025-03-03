@@ -18,7 +18,7 @@
             <div class="card text-center shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title text-primary"><i class="fas fa-chalkboard-teacher"></i> Kelas yang Diampu</h5>
-                    <p class="h3">{{ $guruMapels->count() }} Kelas</p>
+                    <p class="h3">{{ $guruJurusan->count() }} Kelas</p>
                 </div>
             </div>
         </div>
@@ -37,8 +37,8 @@
         <div class="col-md-3">
             <div class="card text-center shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title text-info"><i class="fas fa-book-open"></i> Mapel yang Diampu</h5>
-                    <p class="h3">{{ $guruMapels->groupBy('mapel_id')->count() }} Mapel</p>
+                    <h5 class="card-title text-info"><i class="fas fa-book-open"></i> Jurusan yang Diampu</h5>
+                    <p class="h3">{{ $guruJurusan->groupBy('jurusan_id')->count() }} Jurusan</p>
                 </div>
             </div>
         </div>
@@ -57,22 +57,22 @@
     <!-- Tabel Mata Pelajaran yang Diampu -->
     <div class="card shadow-sm table-responsive">
         <div class="card-body">
-            <h5 class="card-title text-center">Mata Pelajaran yang Diampu</h5>
+            <h5 class="card-title text-center">Kelas yang Diampu</h5>
             <table class="table table-bordered text-center">
                 <thead class="table-primary">
                     <tr>
                         <th>No</th>
                         <th>Kelas</th>
-                        <th>Nama Mapel</th>
+                        <th>Jurusan</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($guruMapels as $index => $guruMapel)
+                    @foreach($guruJurusan as $index => $item)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $guruMapel->kelas->nama_kelas }}</td>
-                            <td>{{ $guruMapel->mapel->nama_mapel }}</td>
+                            <td>{{ $item->kelas->nama_kelas }}</td>
+                            <td>{{ $item->jurusan->nama_jurusan }}</td>
 
                         </tr>
                     @endforeach
