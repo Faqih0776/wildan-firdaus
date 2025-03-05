@@ -33,9 +33,9 @@
                         <i class="fas fa-folder-plus fa-3x" style="color: blue;"></i>
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-primary rounded-pill shadow-sm" data-toggle="modal" data-target="#addMapelModal" style="background-color: blue;">Add Mata Pelajaran</button>
+                        <button type="submit" class="btn btn-primary rounded-pill shadow-sm" data-toggle="modal" data-target="#addJurusanModal" style="background-color: blue;">Add Jurusan</button>
                     </div>
-                    <h5 class="card-title">Total Mata Pelajaran : {{ $totalMataPelajaran }}</h5>
+                    <h5 class="card-title">Total Jurusan : {{ $totalJurusan }}</h5>
                 </div>
             </div>
         </div>
@@ -103,26 +103,26 @@
                     </div>
                 </div>
     </div>
-    <!-- Modal Tambah Mapel -->
-    <div class="modal fade" id="addMapelModal" tabindex="-1" role="dialog" aria-labelledby="addMapelModalLabel" aria-hidden="true">
+    <!-- Modal Tambah Jurusan -->
+    <div class="modal fade" id="addJurusanModal" tabindex="-1" role="dialog" aria-labelledby="addJurusanModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content rounded">
                 <div class="modal-header bg-light text-secondary">
-                    <h5 class="modal-title" id="addMapelModalLabel">Tambah Mata Pelajaran</h5>
+                    <h5 class="modal-title" id="addJurusanModalLabel">Tambah Jurusan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addMapelForm" action="{{ route('admin.mapel.store') }}" method="POST">
+                    <form id="addjurusanForm" action="{{ route('admin.jurusan.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="kode_mapel">Kode Mata Pelajaran</label>
-                            <input type="text" class="form-control" id="kode_mapel" name="kode_mapel" required>
+                            <label for="kode_jurusan">Kode Jurusan</label>
+                            <input type="text" class="form-control" id="kode_jurusan" name="kode_jurusan" required>
                         </div>
                         <div class="form-group">
-                            <label for="nama_mapel">Nama Mata Pelajaran</label>
-                            <input type="text" class="form-control" id="nama_mapel" name="nama_mapel" required>
+                            <label for="nama_jurusan">Nama Jurusan</label>
+                            <input type="text" class="form-control" id="nama_jurusan" name="nama_jurusan" required>
                         </div>
                         <button type="submit" class="btn btn-primary rounded-pill">Simpan</button>
                     </form>
