@@ -81,6 +81,8 @@ Route::prefix('guru')->middleware('auth')->group(function () {
     Route::get('/konten', [KontenController::class, 'index'])->name('guru.konten');
     Route::get('/project', [ProjectController::class, 'index'])->name('guru.project');
     Route::get('/project/kelompok', [ProjectController::class, 'indexkelompok'])->name('guru.project.kelompok');
+    Route::get('/project/{id}/editkelompok', [ProjectController::class, 'editkelompok'])->name('guru.project.editkelompok');
+    Route::post('/project/kelompok/update/{id}', [ProjectController::class, 'updatekelompok'])->name('guru.project.updatekelompok');
     Route::post('/project/kelompok/store', [ProjectController::class, 'store'])->name('guru.kelompok.store');
     Route::get('/konten/createlocal', [KontenController::class, 'createlocal'])->name('guru.konten.createlocal');
     Route::post('konten/storeLocal', [KontenController::class, 'storeLocal'])->name('guru.konten.storeLocal'); // Upload lokal
