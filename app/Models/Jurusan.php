@@ -33,5 +33,9 @@ class Jurusan extends Model
     {
         return $this->hasMany(Ujian::class, 'mapel_id');
     }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 
 }

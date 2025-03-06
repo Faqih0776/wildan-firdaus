@@ -35,7 +35,7 @@
                             <td rowspan="3" class="text-center">{{ $loop->iteration }}</td>
                             <td rowspan="3" class="text-center">{{ $data->kelas->nama_kelas }}</td>
                             <td rowspan="3" class="text-center">{{ $data->nama_kelompok }}</td>
-                            <td class="text-center">{{ $data->user_id_1 ?? 'Belum Ada Anggota' }}  </td>
+                            <td class="text-center">{{ $data->user->username ?? 'Belum Ada Anggota' }}  </td>
                             <td rowspan="3" class="text-center">
                                 <a href="{{ route('guru.project.editkelompok', $data->id) }}" class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i> Edit
@@ -50,10 +50,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-center">{{ $data->user_id_2 ?? 'Belum Ada Anggota' }}</td>
+                            <td class="text-center">{{ $data->user2->username ?? 'Belum Ada Anggota' }}</td>
                         </tr>
                         <tr>
-                            <td class="text-center">{{ $data->user_id_3 ?? 'Belum Ada Anggota' }}</td>
+                            <td class="text-center">{{ $data->user3->username ?? 'Belum Ada Anggota' }}</td>
                         </tr>
                     @endforeach
                 </tbody>

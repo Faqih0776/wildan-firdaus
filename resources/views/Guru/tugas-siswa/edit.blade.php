@@ -18,7 +18,7 @@
             <!-- Form untuk mengedit tugas -->
             <form action="{{ route('guru.tugas-siswa.update', $tugas->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
+                @method('POST')
 
                 <div class="form-group mb-3">
                     <label for="judul">Judul Tugas</label>

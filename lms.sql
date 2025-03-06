@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2025 at 12:02 AM
+-- Generation Time: Mar 06, 2025 at 05:58 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -390,7 +390,7 @@ CREATE TABLE `jurusan` (
 --
 
 INSERT INTO `jurusan` (`id`, `kode_jurusan`, `nama_jurusan`, `created_at`, `updated_at`) VALUES
-(1, 'KMP', 'Komputer', '2025-02-23 02:07:22', '2025-02-23 02:07:22'),
+(1, 'KMP', 'Komputer', '2025-02-23 02:07:22', '2025-03-03 09:25:07'),
 (2, 'JRG', 'Jaringan', '2025-02-23 02:07:31', '2025-02-23 02:07:31');
 
 -- --------------------------------------------------------
@@ -450,7 +450,7 @@ CREATE TABLE `kelompok` (
 --
 
 INSERT INTO `kelompok` (`id`, `nama_kelompok`, `kelas_id`, `jurusan_id`, `user_id_1`, `user_id_2`, `user_id_3`, `guru_id`, `created_at`, `updated_at`) VALUES
-(2, 'Baru', 2, 1, NULL, NULL, NULL, 195, '2025-02-20 17:34:10', '2025-02-20 17:34:10'),
+(2, 'Baru', 2, 1, 205, 212, NULL, 195, '2025-02-20 17:34:10', '2025-03-04 08:15:31'),
 (3, 'Baru2', 9, 1, NULL, NULL, NULL, 195, '2025-02-23 15:36:27', '2025-02-23 15:36:27');
 
 -- --------------------------------------------------------
@@ -479,7 +479,7 @@ CREATE TABLE `konten` (
 --
 
 INSERT INTO `konten` (`id`, `judul`, `deskripsi`, `mapel_id`, `kelas_id`, `jurusan_id`, `file_path`, `link_youtube`, `video_path`, `user_id`, `created_at`, `updated_at`) VALUES
-(17, 'Bebas', 'bebas', 2, 2, 1, 'uploads/materi/1739151847_Laporan Skripsi_124-141.pdf', NULL, 'videos/MbLDmS03QDFWGNjdsqRBEmxygK9KuBOpByagVvU7.mp4', 195, '2025-02-09 18:44:08', '2025-02-11 10:16:08'),
+(17, 'Bebassss', 'bebas', 2, 2, 1, 'uploads/materi/YPdRWoyZjZRA9gzncYKAOVTV280Fe55wAqKAT2aI.pdf', NULL, 'videos/QA9kEegRGafoG3f6aSKJHMp78qpLP3v0AbUBjJoc.mp4', 195, '2025-02-09 18:44:08', '2025-03-03 09:40:39'),
 (18, 'Matematika', 'bebasaja', 2, 2, 1, 'uploads/materi/1739295220_Laporan Skripsi_124-141.pdf', 'https://www.youtube.com/watch?v=T_a80BauRgA', NULL, 195, '2025-02-11 10:33:40', '2025-02-11 10:33:40');
 
 -- --------------------------------------------------------
@@ -667,7 +667,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('o5HMZ1xDrch5vMBiIPQLqZVqD5t2U3VSUOEWdq3f', 195, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiRTlYSVUzMzlIUnZiU3lNVUxlRmd4U2RkZ2d3M0tYZ0tFOEthM0pRbCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ndXJ1L3Byb2plY3Qva2Vsb21wb2siO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxOTU7fQ==', 1740351723);
+('2Dazwag1R10OUhl0whyIo95dzEX4jOl5kajZknDJ', 195, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiWkN3ZWcyQ0h6RVVIZjd5dGRDN0NDdGpPUVJmQUszMmt2QWM1WXZHeSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ndXJ1L2tvbnRlbi8xNy9kZXRhaWxsb2NhbCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE5NTt9', 1741102120);
 
 -- --------------------------------------------------------
 
@@ -752,7 +752,6 @@ CREATE TABLE `tugas` (
 --
 
 INSERT INTO `tugas` (`id`, `judul`, `deskripsi`, `file`, `mapel_id`, `kelas_id`, `guru_id`, `tanggal_pengumpulan`, `created_at`, `updated_at`) VALUES
-(2, 'Tugas Matematika', 'Kerjakan soal berikut', 'tugas_files/hF0IvLCsTBwPklOGRnV5VHIuEV8JUqtMaa0Opnn8.pdf', 2, 2, 195, '2025-02-07', '2024-10-29 15:39:37', '2025-01-29 21:34:35'),
 (8, 'Ilu pengetahuan alam', 'seslesai kan dengan cepat', 'tugas_files/EuCb77KV3RaYLXSeZVsE61YFSuVP1NkjIfq0ytyN.pdf', 1, 1, 196, '2024-12-06', '2024-12-05 08:02:05', '2024-12-05 08:02:05');
 
 -- --------------------------------------------------------
@@ -781,7 +780,7 @@ CREATE TABLE `ujian` (
 --
 
 INSERT INTO `ujian` (`id`, `judul`, `user_id`, `mapel_id`, `kelas_id`, `waktu_pengerjaan`, `info_ujian`, `bobot_pilihan_ganda`, `bobot_essay`, `terbit`, `created_at`, `updated_at`) VALUES
-(7, 'UNBK', 53, 2, 1, 60, 'KOMPUTER', 100, 100, 'Y', '2024-10-21 05:30:36', '2025-02-20 17:56:01'),
+(7, 'UNBK', 53, 2, 1, 60, 'KOMPUTER', 100, 100, 'Y', '2024-10-21 05:30:36', '2025-03-03 09:32:57'),
 (8, 'UTS', 53, 2, 1, 60, 'Matematika', 100, 100, 'Y', '2024-10-24 05:57:47', '2024-10-26 01:00:10'),
 (9, 'GIAT BELAJJAR', 53, 1, 8, 60, 'selamat mengerjakan', 100, 100, 'Y', '2024-10-25 01:18:20', '2024-10-25 01:18:20'),
 (10, 'tugas pertamana', 54, 1, 8, 60, 'selamat', 50, 50, 'Y', '2024-10-25 02:02:05', '2024-10-25 02:02:05'),
@@ -802,7 +801,7 @@ CREATE TABLE `users` (
   `foto` varchar(255) DEFAULT NULL,
   `kelas_id` int(50) UNSIGNED DEFAULT NULL,
   `jurusan_id` int(50) UNSIGNED DEFAULT NULL,
-  `kelompok_id` int(50) UNSIGNED NOT NULL,
+  `kelompok_id` int(50) UNSIGNED DEFAULT NULL,
   `role` enum('admin','guru','siswa') NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -816,14 +815,14 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `foto`, `kelas_id`, 
 (1, 'admin', 'admin@example.com', '$2y$12$ubduCaHOlp9ZlI9YhA3mXu.6HRgjL1HlynnaWWHdbOMMQ8ygWczOu', 'images/admin_photos/1733928658_Mahwa.jpeg', 0, 0, 0, 'admin', '2024-10-05 01:33:43', '2025-01-29 05:05:03'),
 (195, 'Purwani, S.Pd.', 'anugrah@gmail.com', '$2y$12$ErrC7I.Y1ZZYmP5p3.1cw.UA5.Yf0zaFNQXY7.VFKAxfHHiuNKgoO', '1732110431_nice.jpg', 0, 0, 0, 'guru', '2024-10-10 06:28:29', '2025-01-29 05:06:33'),
 (196, 'Sri Dwiatmining E., S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', '1733412409_Mahwa.jpeg', 0, 0, 0, 'guru', '2024-10-10 06:28:30', '2024-12-05 08:26:49'),
-(205, 'Pelangi', NULL, '$2y$12$mObK3Ru/N3.Tj58Nk./rm.gmFyUKIYgCKBtqKY1g4PtZN3VK3hfd6', NULL, 2, 2, 0, 'siswa', '2024-11-06 08:10:28', '2024-11-06 08:10:28'),
+(205, 'Pelangi', NULL, '$2y$12$mObK3Ru/N3.Tj58Nk./rm.gmFyUKIYgCKBtqKY1g4PtZN3VK3hfd6', NULL, 2, 2, 2, 'siswa', '2024-11-06 08:10:28', '2025-03-04 08:15:31'),
 (206, 'Pujito, S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 0, 0, 'guru', '2024-11-06 08:17:42', '2024-11-06 08:17:42'),
 (207, 'Joko Sugianto S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 0, 0, 'guru', '2024-11-06 08:17:43', '2024-11-06 08:17:43'),
 (208, 'Nyanto, S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 0, 0, 'guru', '2024-11-06 08:17:43', '2024-11-06 08:17:43'),
 (209, 'Sri Sumartini, S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 0, 0, 'guru', '2024-11-06 08:17:44', '2024-11-06 08:17:44'),
 (210, 'Siti Mutmainah,S.Pd.', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 0, 0, 'guru', '2024-11-06 08:17:44', '2024-11-06 08:17:44'),
 (211, 'Sulistamaji, S.Pd', NULL, '$2y$10$/zNljPdECyY1CBTY2RBAreelAagiN5razjTVvp/Pg8MnAhk0seeGe', NULL, NULL, 0, 0, 'guru', '2024-11-06 08:17:45', '2024-11-06 08:17:45'),
-(212, 'Siswa 2', NULL, '$2y$12$mObK3Ru/N3.Tj58Nk./rm.gmFyUKIYgCKBtqKY1g4PtZN3VK3hfd6', NULL, 2, 1, 0, 'siswa', '2025-01-29 05:20:11', '2025-01-29 21:17:12');
+(212, 'Siswa 2', NULL, '$2y$12$mObK3Ru/N3.Tj58Nk./rm.gmFyUKIYgCKBtqKY1g4PtZN3VK3hfd6', NULL, 2, 1, 2, 'siswa', '2025-01-29 05:20:11', '2025-03-04 08:15:31');
 
 -- --------------------------------------------------------
 
@@ -1275,7 +1274,7 @@ ALTER TABLE `threads`
 -- AUTO_INCREMENT for table `tugas`
 --
 ALTER TABLE `tugas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `ujian`

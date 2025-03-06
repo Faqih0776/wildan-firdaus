@@ -39,7 +39,7 @@
                     <select name="mapel_id" class="form-control" required>
                         <option value="">Pilih Mapel</option>
                         @foreach($mapels as $item)
-                            <option value="{{ $item->mapel->id }}">{{ $item->mapel->nama_mapel }}</option>
+                            <option value="{{ $item->jurusan->id }}">{{ $item->jurusan->nama_jurusan }}</option>
                         @endforeach
 
                     </select>

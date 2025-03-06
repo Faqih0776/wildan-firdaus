@@ -29,7 +29,7 @@ class TugasSiswaController extends Controller
     {
 
         // Mengambil data mapel dan kelas dari guru_mapels berdasarkan guru yang sedang login
-        $mapels = GuruMapel::with(['mapel', 'kelas'])
+        $mapels = GuruMapel::with(['mapel', 'kelas', 'jurusan'])
                     ->where('user_id', auth()->id())
                     ->get();
 
@@ -161,6 +161,7 @@ class TugasSiswaController extends Controller
     // di Halaman Guru
     public function showTugas($id)
     {
+        
         // Mengambil data tugas berdasarkan ID
         $tugas = Tugas::with(['mapel', 'kelas', 'guru'])->findOrFail($id);
 

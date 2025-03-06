@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Project;
+use App\Models\Siswa;
 use App\Models\Kelompok;
 use App\Models\Mapel; // Model untuk Mata Pelajaran
 use App\Models\GuruMapel; // Model untuk Mata Pelajaran
@@ -23,7 +24,7 @@ class ProjectController extends Controller
     public function indexkelompok()
 {
     // Ambil data kelompok yang dibuat oleh guru yang sedang login
-    $kelompok = Kelompok::with(['kelas'])
+    $kelompok = Kelompok::with(['kelas', 'user', 'user2', 'user3'])
                 ->where('guru_id', auth()->id()) // Hanya untuk guru yang sedang login
                 ->get();
 
@@ -71,8 +72,8 @@ public function store(Request $request)
             'kelas_id' => 'required|string|max:255',
             'jurusan_id' => 'required|string|max:255',
             'user_id_1' => 'required|string|max:255',
-            'user_id_2' => 'required|string|max:255',
-            'user_id_3' => 'required|string|max:255',
+            'user_id_2' => 'nullable|string|max:255',
+            'user_id_3' => 'nullable|string|max:255',
             
         ]);
         $kelompok = Kelompok::findOrFail($id);
@@ -84,9 +85,16 @@ public function store(Request $request)
             'user_id_2' => $request->user_id_2,
             'user_id_3' => $request->user_id_3,
         ]);
-        $id1 = $request->user_id_1;
-        $user1 = User::find($id1);
+        $user1 = User::where('id', $request->user_id_1);
         $user1->update([
+            'kelompok_id' => $id
+        ]);
+        $user2 = User::where('id', $request->user_id_2);
+        $user2->update([
+            'kelompok_id' => $id
+        ]);
+        $user3 = User::where('id', $request->user_id_3);
+        $user3->update([
             'kelompok_id' => $id
         ]);
         return redirect()->route('guru.project.kelompok')->with('success', 'Data berhasil diperbarui');

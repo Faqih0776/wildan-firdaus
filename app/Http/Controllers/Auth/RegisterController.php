@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Kelas;
+use App\Models\Siswa; // pastikan Anda telah membuat model Siswa
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -55,6 +55,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role' => ['required'],
             'kelas_id' => ['required'],
+            'gender' => ['required'],
         ]);
     }
 
@@ -63,6 +64,7 @@ class RegisterController extends Controller
      *
      * @param  array  $data
      * @return \App\Models\User
+     * @return \App\Models\Siswa
      */
     protected function create(array $data)
     {
@@ -72,6 +74,10 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'role' => $data['role'],
             'kelas_id' => $data['kelas_id'],
+        ]);
+        Siswa::create([
+            'user_id' => $user['id'],
+            'gender' => $data['gender'],
         ]);
     }
 }

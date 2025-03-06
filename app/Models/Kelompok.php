@@ -18,7 +18,15 @@ class Kelompok extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id_1', 'user_id_2', 'user_id_3');
+        return $this->belongsTo(User::class, 'user_id_1');
+    }
+    public function user2()
+    {
+        return $this->belongsTo(User::class, 'user_id_2');
+    }
+    public function user3()
+    {
+        return $this->belongsTo(User::class, 'user_id_3');
     }
 
 }

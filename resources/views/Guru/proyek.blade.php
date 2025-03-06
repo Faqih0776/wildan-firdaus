@@ -19,7 +19,7 @@
             <div class="card text-center shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title text-primary"><i class="fas fa-chalkboard-teacher"></i> Kelas yang Diampu</h5>
-                    <p class="h3">{{ $guruMapels->count() }} Kelas</p>
+                    <p class="h3">{{ $guruJurusan->count() }} Kelas</p>
                 </div>
             </div>
         </div>
@@ -28,9 +28,8 @@
         <div class="col-md-3">
             <div class="card text-center shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title text-success" style="font-size: 20px; font-weight: bold;"><i class="fas fa-user-graduate"></i> Proyek Siswa</h5>
-                    <br>
-                    <br>
+                    <h5 class="card-title text-success" style="font-size: 15px; font-weight: bold;"><i class="fas fa-user-graduate"></i> Proyek Siswa</h5>
+                    <a href="{{ route('guru.project') }}" class="btn rounded-pill" style="background-color: blue; color: white;">Lihat Proyek Siswa</a>
                 </div>
             </div>
         </div>
@@ -39,8 +38,8 @@
         <div class="col-md-3">
             <div class="card text-center shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title text-info"><i class="fas fa-book-open"></i> Mapel yang Diampu</h5>
-                    <p class="h3">{{ $guruMapels->groupBy('mapel_id')->count() }} Mapel</p>
+                    <h5 class="card-title text-info"><i class="fas fa-book-open"></i> Jurusan yang Diampu</h5>
+                    <p class="h3">{{ $guruJurusan->groupBy('jurusan_id')->count() }} Jurusan</p>
                 </div>
             </div>
         </div>

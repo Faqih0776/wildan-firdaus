@@ -51,7 +51,7 @@ class Ujian extends Model
     }
     public function soal()
 {
-    return $this->hasMany(PilihanGanda::class, 'ujian_id', 'id');
+    return $this->hasMany(PilihanGanda::class, 'ujian_id');
 }
 
     // Relasi ke Soal Essay

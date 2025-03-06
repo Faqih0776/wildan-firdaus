@@ -79,6 +79,7 @@
                                 @endphp
                                 @if($youtubeId)
                                     <iframe src="https://www.youtube.com/embed/{{ $youtubeId }}" allowfullscreen></iframe>
+                                <!--    <img src="https://img.youtube.com/vi/{{ $youtubeId }}/mqdefault.jpg"> -->
                                 @else
                                     <p class="text-danger">Invalid YouTube link.</p>
                                 @endif
@@ -108,12 +109,17 @@
                     </div>
                 </div>
                 @empty
-                <div class="col-12">
+                <div class="col-md-4 mb-4">
                     <p class="text-center text-muted">
                         <i class="fas fa-info-circle"></i> Belum ada video yang tersedia.
                     </p>
                 </div>
                 @endforelse
+                <div class="col-md-4 mb-4">
+                    <p class="text-center text-muted">
+                        <i class="fas fa-info-circle"></i> Belum ada video yang tersedia.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
